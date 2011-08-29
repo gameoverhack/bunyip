@@ -1,13 +1,5 @@
 <config>
     <properties>
-        <property name="depth01Max" type="float">0.000000</property>
-        <property name="depth01Min" type="float">0.000000</property>
-        <property name="depth02Max" type="float">0.000000</property>
-        <property name="depth02Min" type="float">0.000000</property>
-        <property name="farThreshold0" type="int">1510</property>
-        <property name="farThreshold1" type="int">660</property>
-        <property name="nearThreshold0" type="int">800</property>
-        <property name="nearThreshold1" type="int">510</property>
         <property name="showDebug" type="bool">true</property>
         <property name="showDualScreen" type="bool">true</property>
         <property name="showFullscreen" type="bool">false</property>

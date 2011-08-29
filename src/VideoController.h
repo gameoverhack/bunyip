@@ -7,3 +7,26 @@
  *
  */
 
+#ifndef _H_VIDEOCONTROLLER
+#define _H_VIDEOCONTROLLER
+
+#include "AppModel.h"
+#include "Logger.h"
+#include "goThreadedVideo.h"
+
+class VideoController {
+
+public:
+	
+	VideoController();
+	~VideoController();
+	
+	void update();
+	
+	void setupVideoLayers();
+	
+private:
+	
+};
+
+#endif

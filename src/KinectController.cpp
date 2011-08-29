@@ -33,13 +33,8 @@ KinectController::KinectController() {
     ok = oniIRGen->setup(oniContext);
 	ok = oniUserGen->setup(oniContext);
 	ok = oniHandGen->setup(oniContext, 1);
-	
-	cout << "muther " << oniDepthGen->getWidth() << endl;
-	
+
 	if (ok) {
-		oniDepthGen->setMaxNumDepthThresholds(2);
-		oniDepthGen->setDepthThreshold(0, 30, 3000);
-		oniDepthGen->setDepthThreshold(1, 4000, 10000);
 		setState(kKINECTCONTROLLER_READY);
 	} else setState(kKINECTCONTROLLER_ERROR);
 	
@@ -86,27 +81,63 @@ void KinectController::toggleMirrorKinectViewport() {
 }
 
 //--------------------------------------------------------------
-void KinectController::adjustNearThreshold(int forDepthThreshold, int amount) {
+void KinectController::setNearThreshold(int amount, bool relative) {
+	
 	if (checkState(kKINECTCONTROLLER_READY)) {
-		int near = boost::any_cast<int>(_appModel->getProperty("nearThreshold"+ofToString(forDepthThreshold)));
-		int far = boost::any_cast<int>(_appModel->getProperty("farThreshold"+ofToString(forDepthThreshold)));
-		near = near + amount;
+		
 		ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
-		oniDepthGen->setDepthThreshold(forDepthThreshold, near, far);
-		_appModel->setProperty("nearThreshold"+ofToString(forDepthThreshold), near);
+		Scene * currentScene			= _appModel->getCurrentScene();
+		KinectView * kinectLayer		= currentScene->getCurrentKinectLayer();
+		int	kinectLayerIndex			= currentScene->getCurrentKinectLayerIndex();
+		
+		if (kinectLayer != NULL) {
+			kinectLayer->setNearThreshold(amount, relative);
+		}
+		
+		oniDepthGen->setDepthThreshold(kinectLayerIndex, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());
 	}
+	
 }
 
 //--------------------------------------------------------------
-void KinectController::adjustFarThreshold(int forDepthThreshold, int amount) {
+void KinectController::setFarThreshold(int amount, bool relative) {
+
 	if (checkState(kKINECTCONTROLLER_READY)) {
-		int near = boost::any_cast<int>(_appModel->getProperty("nearThreshold"+ofToString(forDepthThreshold)));
-		int far = boost::any_cast<int>(_appModel->getProperty("farThreshold"+ofToString(forDepthThreshold)));
-		far = far + amount;
+		
 		ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
-		oniDepthGen->setDepthThreshold(forDepthThreshold, near, far);
-		_appModel->setProperty("farThreshold"+ofToString(forDepthThreshold), far);
+		Scene * currentScene			= _appModel->getCurrentScene();
+		KinectView * kinectLayer		= currentScene->getCurrentKinectLayer();
+		int	kinectLayerIndex			= currentScene->getCurrentKinectLayerIndex();
+		
+		if (kinectLayer != NULL) {
+			kinectLayer->setFarThreshold(amount, relative);
+		}
+		
+		oniDepthGen->setDepthThreshold(kinectLayerIndex, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());		
 	}
+	
+}
+
+//--------------------------------------------------------------
+void KinectController::setupKinectLayers() {
+
+	if (checkState(kKINECTCONTROLLER_READY)) {
+		
+		Scene * currentScene			= _appModel->getCurrentScene();
+		ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
+		int	numberOfKinectLayers		= currentScene->getNumberOfKinectLayers();
+		
+		oniDepthGen->setMaxNumDepthThresholds(numberOfKinectLayers);
+		
+		for (int layer = 0; layer < numberOfKinectLayers; layer++) {
+			
+			KinectView * kinectLayer	= currentScene->getKinectLayer(layer);
+			
+			oniDepthGen->setDepthThreshold(layer, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());
+		}
+	
+	}
+	
 }
 
 //--------------------------------------------------------------

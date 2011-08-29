@@ -9,3 +9,22 @@
 
 #include "VideoController.h"
 
+//--------------------------------------------------------------
+VideoController::VideoController() {
+	LOG_NOTICE("Constructing VideoController");
+}
+
+//--------------------------------------------------------------
+VideoController::~VideoController() {
+	LOG_NOTICE("Destroying VideoController");
+}
+
+//--------------------------------------------------------------
+void VideoController::update() {
+	
+}
+
+//--------------------------------------------------------------
+void VideoController::setupVideoLayers() {
+
+}

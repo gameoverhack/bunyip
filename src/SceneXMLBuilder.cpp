@@ -48,7 +48,9 @@ void SceneXMLBuilder::buildXML(){
 			//_xml.addAttribute("kinectLayer", "id", kinectLayer->getInstanceID(), layer);
 			_xml.addAttribute("kinectLayer", "width", kinectLayer->getWidth(), layer);
 			_xml.addAttribute("kinectLayer", "height", kinectLayer->getHeight(), layer);
-
+			_xml.addAttribute("kinectLayer", "nearThreshold", kinectLayer->getNearThreshold(), layer);
+			_xml.addAttribute("kinectLayer", "farThreshold", kinectLayer->getFarThreshold(), layer);
+			
 			_xml.pushTag("kinectLayer", layer);
 			
 			_xml.addTag("viewPort");

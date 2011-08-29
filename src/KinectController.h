@@ -34,8 +34,11 @@ public:
 	
 	void	toggleRegisterKinectViewport();
 	void	toggleMirrorKinectViewport();
-	void	adjustNearThreshold(int forDepthThreshold, int amount);
-	void	adjustFarThreshold(int forDepthThreshold, int amount);
+	
+	void	setNearThreshold(int amount, bool relative = false);
+	void	setFarThreshold(int amount, bool relative = false);
+	
+	void	setupKinectLayers();
 	
 	void	update();
 	

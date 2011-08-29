@@ -43,19 +43,27 @@ void DebugView::update() {
     glClear(GL_COLOR_BUFFER_BIT);
 	
 	for (int layer = 0; layer < currentScene->getNumberOfKinectLayers(); layer++) {
+		
 		glPushMatrix();
 		KinectView* kinectLayer		= currentScene->getKinectLayer(layer);
 		ViewPort* viewPort			= kinectLayer->getViewPort();
 		
-		float x = 10+(layer * ( 14 + kinectLayer->getWidth()/4.0f ));
-		float y = 10;
-		float width = kinectLayer->getWidth()/4.0f;
-		float height = kinectLayer->getHeight()/4.0f;
-		
+		float x			= 10+(layer * ( 14 + kinectLayer->getWidth()/4.0f ));
+		float y			= 10;
+		float width		= 320.0f/kinectLayer->getWidth();
+		float height	= 240.0f/kinectLayer->getHeight();
+		string info		= "kLayer " + ofToString(layer) + " near: " + ofToString(kinectLayer->getNearThreshold()) + " far: " + ofToString(kinectLayer->getFarThreshold());
+
 		glTranslatef(0.0f, _viewHeight, 0.0f);
 		glScaled(1.0f, -1.0f, 0.0f);
+		if (layer == currentScene->getCurrentKinectLayerIndex()) {
+			ofSetColor(0, 0, 255);
+		} else ofSetColor(255, 255, 255);
+		ofDrawBitmapString(info, x+4, y+12);
+		ofSetColor(255, 255, 255);
 		viewPort->drawViewport(x, y, width, height); // upside down mr squiggle
 		glPopMatrix();
+		
 	}
 	
 	ofSetColor(0, 255, 255);

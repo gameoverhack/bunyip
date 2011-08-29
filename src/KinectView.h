@@ -20,7 +20,7 @@ class KinectView : public BaseView {
 
 public:
 
-	KinectView(float width, float height, ViewPort * viewPort = NULL);
+	KinectView(float width, float height, int layerIndex, ViewPort * viewPort = NULL, int nearThreshold = 0, int farThreshold = 10000);
 	~KinectView();
 	
 	void update();
@@ -29,11 +29,22 @@ public:
 	ofxCvContourFinder*		getDepthContour() {return _depthContour;};
 	unsigned char*			getDepthPixels() {return _depthPixels;};
 	
+	int						getNearThreshold() {return _nearThreshold;};
+	int						getFarThreshold() {return _farThreshold;};
+	
+	void					setNearThreshold(int amount, bool relative = false);
+	void					setFarThreshold(int amount, bool relative = false);
+	
 private:
 	
 	ofxCvGrayscaleImage*	_depthImage;
 	ofxCvContourFinder*		_depthContour;
 	unsigned char*			_depthPixels;
+	
+	int						_nearThreshold;
+	int						_farThreshold;
+	
+	int						_layerIndex;
 	
 };
 

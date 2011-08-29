@@ -25,7 +25,7 @@ BaseView::BaseView(float width, float height) {
 	_viewFBOTexture.loadData(black, _viewWidth, _viewHeight, GL_RGBA);
 
 	// set up fbo and attach texture
-	_viewFBO.setup(_viewWidth, _viewHeight);
+	_viewFBO.setup(_viewWidth, _viewHeight, true, false);
 	_viewFBO.attach(_viewFBOTexture);
 
 	// Free black pixels

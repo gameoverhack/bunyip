@@ -104,6 +104,7 @@ void MouseController::mousePressed(ofMouseEventArgs &e) {
 			if(dist < smallestDist && dist < 0.1){
 				_currentViewPortCorner = corner;
 				_currentViewPortIndex = i;
+				currentScene->setCurrentKinectLayer(_currentViewPortIndex); // for threshold stuff
 				smallestDist = dist;
 				return;
 			}
@@ -121,12 +122,15 @@ void MouseController::mousePressed(ofMouseEventArgs &e) {
 				(float)e.y < currentViewPort->getEditY() + (currentViewPort->getY() + currentViewPort->getHeight()) * currentViewPort->getEditScaleY()) {
 				
 				_currentViewPortIndex = i;
+				currentScene->setCurrentKinectLayer(_currentViewPortIndex); // for threshold stuff
 				_mouseOriginX = e.x;
 				_mouseOriginY = e.y;
 				return;
 			}
 		}
 	}
+	
+	
 }
 
 //--------------------------------------------------------------

@@ -12,75 +12,6 @@
 
 #include "KinectView.h"
 
-//class KinectLayer : public BaseView {
-//	
-//public:
-//	
-//	KinectLayer(float width, float height, ViewPort * viewPort = NULL) : BaseView(width, height) {
-//		
-//		if (viewPort == NULL) {
-//			
-//			LOG_VERBOSE("Creating KinectLayer with default ViewPort");
-//			
-//			_viewPort = new ViewPort(width, height);
-//			
-//		} else {
-//			
-//			LOG_VERBOSE("Creating KinectLayer with defined ViewPort");
-//			
-//			_viewPort = viewPort;
-//			
-//		}
-//
-//		_depthPixels	= new unsigned char[640 * 480];
-//		_depthImage		= new ofxCvGrayscaleImage();
-//		_depthContour	= new ofxCvContourFinder();
-//		//_depthSmooth	= new vector<ofPoint>;
-//		//spline2D.setInterpolation(MSA::kInterpolationCubic);
-//		
-//		_depthImage->allocate(640, 480);
-//		
-//	};
-//	
-//	~KinectLayer() {
-//		
-//		LOG_NOTICE("Destroying KinectLayer");
-//		
-//		_depthImage->clear();
-//		
-//		delete _viewPort;
-//		delete _depthImage;
-//		delete _depthContour;
-//		//delete _depthSmooth;
-//		delete [] _depthPixels;
-//		
-//	}
-//	void update() {};
-//	//ViewPort*				getViewPort() {return _viewPort;};
-//	ofxCvGrayscaleImage*	getDepthImage() {return _depthImage;};
-//	ofxCvContourFinder*		getDepthContour() {return _depthContour;};
-//	unsigned char*			getDepthPixels() {return _depthPixels;};
-//	
-//	//float					getWidth() {return _width;};
-//	//float					getHeight() {return _height;};
-//	
-//	//MSA::Interpolator2D				spline2D;
-//	
-//	//vector <ofPoint>* _depthSmooth;
-//	
-//private:
-//	
-//	//float					_width;
-//	//float					_height;
-//		
-//	ofxCvGrayscaleImage*	_depthImage;
-//	ofxCvContourFinder*		_depthContour;
-//	unsigned char*			_depthPixels;
-//	//ViewPort*				_viewPort;
-//	
-//};
-
-
 class Scene {
 	
 public:
@@ -93,7 +24,7 @@ public:
 			LOG_VERBOSE("Constructing new scene with defualt KinectLayer and ViewPorts");
 			
 			for (int layer = 0; layer < _numberKinectLayers; layer++) {
-				_kinectLayers[layer] = new KinectView(width, height);
+				_kinectLayers[layer] = new KinectView(width, height, layer);
 			}
 			
 		} else {
@@ -106,6 +37,8 @@ public:
 						
 		}
 
+		_currentKinectLayer = -1;
+		
 	};
 	
 	~Scene() {
@@ -123,6 +56,15 @@ public:
 	
 	int		getNumberOfKinectLayers() {return _numberKinectLayers;};
 	int		getNumberOfVideoLayers() {return _numberVideoLayers;};
+	
+	KinectView*	getCurrentKinectLayer() {
+		if(_currentKinectLayer >= 0) {
+			return _kinectLayers[_currentKinectLayer];
+		} else return NULL;
+	};
+	
+	int			getCurrentKinectLayerIndex() {return _currentKinectLayer;};
+	void		setCurrentKinectLayer(int layer) {assert(layer < _numberKinectLayers); _currentKinectLayer = layer;};
 	
 	bool	deleteKinectLayer(int layer) {
 		
@@ -168,7 +110,7 @@ public:
 		}
 		
 		if (kinectLayer == NULL) {
-			_kinectLayers[layer] = new KinectView(_width, _height);
+			_kinectLayers[layer] = new KinectView(_width, _height, layer);
 		} else {
 			_kinectLayers[layer] = kinectLayer;
 		}
@@ -187,6 +129,8 @@ private:
 	
 	int			_numberKinectLayers;
 	int			_numberVideoLayers;
+	int			_currentKinectLayer;
+	
 	float		_width;
 	float		_height;
 	
