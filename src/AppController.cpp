@@ -28,96 +28,59 @@ AppController::AppController() {
 //	_appModel->setProperty("nearThreshold0", 300);
 //	_appModel->setProperty("farThreshold0", 4000);
 //	_appModel->setProperty("nearThreshold1", 0);
-//	_appModel->setProperty("farThreshold1", 10000);
+	//_appModel->setProperty("blurIterations", 1);
 	
 	_mouseController = new MouseController();
 	_keyboardController = new KeyboardController();
 	_midiController = new MidiController();
+	_videoController = new VideoController();
 	_kinectController = new KinectController();
 	
 	_appView = new AppView(1024.0f, 768.0f);
 	
 	//_appModel->setScene(new Scene("test_scene", 2, 0, 1024.0f, 768.0f));
 	//_appModel->setScene(new Scene("test2_scene", 2, 0, 1024.0f, 768.0f));
+	
 
-	_appModel->_keyboardModel->registerFunction("KinectController::setNearThreshold", 
+	_keyModel->registerFunction("AppModel::adjustIntProperty", 
+												MakeDelegate(_appModel, &AppModel::adjustIntProperty));
+	
+	_keyModel->registerFunction("KinectController::setNearThreshold", 
 												MakeDelegate(_kinectController, &KinectController::setNearThreshold));
 
-	_appModel->_keyboardModel->registerFunction("KinectController::setFarThreshold", 
+	_keyModel->registerFunction("KinectController::setFarThreshold", 
 												MakeDelegate(_kinectController, &KinectController::setFarThreshold));
 	
-	_appModel->_keyboardModel->registerFunction("AppModel::toggleBooleanProperty", 
+	_keyModel->registerFunction("AppModel::toggleBooleanProperty", 
 												MakeDelegate(_appModel, &AppModel::toggleBooleanProperty));
 	
-	_appModel->_keyboardModel->registerFunction("AppController::toggleFullscreen", 
+	_keyModel->registerFunction("AppController::toggleFullscreen", 
 												MakeDelegate(this, &AppController::toggleFullscreen));
 	
-	_appModel->_keyboardModel->registerFunction("KinectController::toggleRegisterKinectViewport", 
+	_keyModel->registerFunction("KinectController::toggleRegisterKinectViewport", 
 												MakeDelegate(_kinectController, &KinectController::toggleRegisterKinectViewport));
 
 	
 	ofSetFullscreen(boost::any_cast<bool>(_appModel->getProperty("showFullscreen")));
 	
-	KeyMessage km1('p', kKEY_DOWN, 0);
-	InputParams1<KeyMessage, string> ki1(km1, "showProps");
-	
-	KeyMessage km2('d', kKEY_DOWN, 0);
-	InputParams1<KeyMessage, string> ki2(km2, "showDebug");
-	
-	KeyMessage km3('f', kKEY_DOWN, 0);
-	InputParams0<KeyMessage> ki3(km3);
-	
-	KeyMessage km4('s', kKEY_DOWN, 0);
-	InputParams1<KeyMessage, string> ki4(km4, "showKinectFull");
-
-	KeyMessage km5('g', kKEY_DOWN, 0);
-	InputParams1<KeyMessage, string> ki5(km5, "showDualScreen");
-	
-	KeyMessage km6('r', kKEY_DOWN, 0);
-	InputParams0<KeyMessage> ki6(km6);
-	
-//	KeyMessage km7('y', kKEY_DOWN, 0);
-//	InputParams2<KeyMessage, int, int> ki7(km7, 0, 10);
-//	
-//	KeyMessage km8('h', kKEY_DOWN, 0);
-//	InputParams2<KeyMessage, int, int> ki8(km8, 0, -10);
-//	
-//	KeyMessage km9('u', kKEY_DOWN, 0);
-//	InputParams2<KeyMessage, int, int> ki9(km9, 0, 10);
-//	
-//	KeyMessage km10('j', kKEY_DOWN, 0);
-//	InputParams2<KeyMessage, int, int> ki10(km10, 0, -10);
-	
-	KeyMessage km11('i', kKEY_DOWN, 0);
-	InputParams2<KeyMessage, int, bool> ki11(km11, 10, true);
-	
-	KeyMessage km12('k', kKEY_DOWN, 0);
-	InputParams2<KeyMessage, int, bool> ki12(km12, -10, true);
-	
-	KeyMessage km13('o', kKEY_DOWN, 0);
-	InputParams2<KeyMessage, int, bool> ki13(km13, 10, true);
-	
-	KeyMessage km14('l', kKEY_DOWN, 0);
-	InputParams2<KeyMessage, int, bool> ki14(km14, -10, true);
-	
-	_appModel->_keyboardModel->registerInputToFunction("AppModel::toggleBooleanProperty", ki1, "show all properties in debug view");
-	_appModel->_keyboardModel->registerInputToFunction("AppModel::toggleBooleanProperty", ki2, "show debug view");
-	_appModel->_keyboardModel->registerInputToFunction("AppController::toggleFullscreen", ki3, "toggle full screen");
-	_appModel->_keyboardModel->registerInputToFunction("AppModel::toggleBooleanProperty", ki4, "toggle depth mask full screen");
-	_appModel->_keyboardModel->registerInputToFunction("AppModel::toggleBooleanProperty", ki5, "toggle dual/mirror screen");
-	_appModel->_keyboardModel->registerInputToFunction("KinectController::toggleRegisterKinectViewport", ki6, "toggle kinect register viewport");
-//	_appModel->_keyboardModel->registerInputToFunction("KinectController::adjustNearThreshold", ki7, "increment nearThreshold0");
-//	_appModel->_keyboardModel->registerInputToFunction("KinectController::adjustNearThreshold", ki8, "decrement nearThreshold0");
-//	_appModel->_keyboardModel->registerInputToFunction("KinectController::adjustFarThreshold", ki9, "increment farThreshold0");
-//	_appModel->_keyboardModel->registerInputToFunction("KinectController::adjustFarThreshold", ki10, "decrement farThreshold0");
-	_appModel->_keyboardModel->registerInputToFunction("KinectController::setNearThreshold", ki11, "increment current kinectLayer nearThreshold");
-	_appModel->_keyboardModel->registerInputToFunction("KinectController::setNearThreshold", ki12, "decrement current kinectLayer nearThreshold1");
-	_appModel->_keyboardModel->registerInputToFunction("KinectController::setFarThreshold", ki13, "increment current kinectLayer farThreshold1");
-	_appModel->_keyboardModel->registerInputToFunction("KinectController::setFarThreshold", ki14, "decrement current kinectLayer farThreshold1");
+	_keyModel->registerKey('f', kKEY_DOWN, "toggle fullscreen/window", "AppController::toggleFullscreen");
+	_keyModel->registerKey('r', kKEY_DOWN, "toggle kinect register viewport", "KinectController::toggleRegisterKinectViewport");
+	_keyModel->registerKey('p', kKEY_DOWN, "show all properties in debug view", "AppModel::toggleBooleanProperty", (string)"showProps");
+	_keyModel->registerKey('d', kKEY_DOWN, "show/hide debug view", "AppModel::toggleBooleanProperty", (string)"showDebug");
+	_keyModel->registerKey('s', kKEY_DOWN, "toggle dual screen draw", "AppModel::toggleBooleanProperty", (string)"showDualScreen");
+	_keyModel->registerKey('y', kKEY_DOWN, "increment blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", 1);
+	_keyModel->registerKey('h', kKEY_DOWN, "decrement blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", -1);
+	_keyModel->registerKey('i', kKEY_DOWN, "increment current kinectLayer nearThreshold", "KinectController::setNearThreshold", 10, true);
+	_keyModel->registerKey('k', kKEY_DOWN, "decrement current kinectLayer nearThreshold", "KinectController::setNearThreshold", -10, true);
+	_keyModel->registerKey('o', kKEY_DOWN, "increment current kinectLayer farThreshold", "KinectController::setFarThreshold", 10, true);
+	_keyModel->registerKey('l', kKEY_DOWN, "decrement current kinectLayer farThreshold", "KinectController::setFarThreshold", -10, true);
 	
 	_appModel->setCurrentScene("test_scene");
 	_kinectController->setupKinectLayers();
+	_videoController->setupVideoLayers();
 	
+	//_appModel->getCurrentScene()->addVideoLayer();
+	//->getCurrentScene()->getVideoLayer(0)->loadMovie("/Users/gameover/Desktop/FolioBig/VimeoReady/MoralesVacircaGingoldEDIT.mp4");
 	
 	setState(kAPPCONTROLLER_RUNNING);
 	
@@ -135,6 +98,7 @@ AppController::~AppController() {
 	delete _dataController;
 	delete _keyboardController;
 	delete _midiController;
+	delete _videoController;
 	delete _kinectController;
 	delete _appModel;
 }
@@ -158,6 +122,7 @@ void AppController::registerStates() {
 
 //--------------------------------------------------------------
 void AppController::update() {
+	_videoController->update();
 	_kinectController->update();
 	_appView->update();
 }

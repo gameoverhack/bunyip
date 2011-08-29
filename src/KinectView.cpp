@@ -28,14 +28,12 @@ KinectView::KinectView(float width, float height, int layerIndex, ViewPort * vie
 		_viewPort = viewPort;
 		
 	}
-	
-	_depthPixels	= new unsigned char[(int)width * (int)height];
+							
+	_depthPixels	= new unsigned char[640 * 480];
 	_depthImage		= new ofxCvGrayscaleImage();
 	_depthContour	= new ofxCvContourFinder();
-	//_depthSmooth	= new vector<ofPoint>;
-	//spline2D.setInterpolation(MSA::kInterpolationCubic);
-	
-	_depthImage->allocate(width, height);
+
+	_depthImage->allocate(640, 480);
 	
 }
 
@@ -46,10 +44,8 @@ KinectView::~KinectView() {
 	
 	_depthImage->clear();
 	
-	//delete _viewPort;
 	delete _depthImage;
 	delete _depthContour;
-	//delete _depthSmooth;
 	delete [] _depthPixels;
 	
 }
@@ -58,6 +54,7 @@ KinectView::~KinectView() {
 void KinectView::update() {
 	
 	_viewFBO.begin();
+	
 	glPushMatrix();
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0); // transparent clear colour
@@ -65,7 +62,9 @@ void KinectView::update() {
 	
 	//_depthImage->draw(0, 0, _viewWidth, _viewHeight);
 	//_depthContour->draw(0, 0, _viewWidth, _viewHeight);
+	
 	ofSetColor(255, 255, 0, 255);
+	glScalef(_viewWidth/640.0f, _viewHeight/480.0f, 1.0f);
 	for( int i=0; i<(int)_depthContour->blobs.size(); i++ ) {
 		ofFill();
 		ofBeginShape();

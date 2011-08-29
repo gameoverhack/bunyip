@@ -12,6 +12,7 @@
 
 #include "KinectModel.h"
 #include "BaseView.h"
+
 #include "ofxOpenNI.h"
 #include "ofxOpenCv.h"
 //#include "MSAInterpolator.h"

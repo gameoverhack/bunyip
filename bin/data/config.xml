@@ -1,9 +1,10 @@
 <config>
     <properties>
+        <property name="blurIterations" type="int">2</property>
         <property name="showDebug" type="bool">true</property>
         <property name="showDualScreen" type="bool">true</property>
         <property name="showFullscreen" type="bool">false</property>
-        <property name="showKinectFull" type="bool">false</property>
-        <property name="showProps" type="bool">false</property>
+        <property name="showKinectFull" type="bool">true</property>
+        <property name="showProps" type="bool">true</property>
     </properties>
 </config>

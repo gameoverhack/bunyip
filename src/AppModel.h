@@ -13,7 +13,6 @@
 #include "Singleton.h"
 #include "AppDataTypes.h"
 #include "SceneDataType.h"
-#include "KeyboardModel.h"
 
 #include <boost/any.hpp>
 
@@ -64,10 +63,8 @@ public:
 	void					setProperty(string propName, boost::any propVal);
 	
 	// grrr
-	void					incrementIntProperty(string propName, int propVal);
-	void					decrementIntProperty(string propName, int propVal);
-	void					incrementFloatProperty(string propName, float propVal);
-	void					decrementFloatProperty(string propName, float propVal);
+	void					adjustIntProperty(string propName, int amount);
+	void					adjustFloatProperty(string propName, float amount);
 	
 	void					getProperty(string propName, int & propVal);
 	void					getProperty(string propName, float & propVal);
@@ -81,7 +78,7 @@ public:
 	map<string, string>		getAllPropsNameTypeAsMap();
 	
 	//KinectModel*			_kinectModel;
-	KeyboardModel*			_keyboardModel;
+	//KeyboardModel*			_keyboardModel;
 	
 	void					registerStatefulClass(string className);
 	void					setRemoteState(string className, string state);

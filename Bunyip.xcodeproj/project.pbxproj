@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77070C0E140BBFC200D62BC4 /* blend.vert in Sources */ = {isa = PBXBuildFile; fileRef = 77070C0D140BBFC200D62BC4 /* blend.vert */; };
+		77070C10140BBFD100D62BC4 /* blend.frag in Sources */ = {isa = PBXBuildFile; fileRef = 77070C0F140BBFD100D62BC4 /* blend.frag */; };
 		771DADCE14047E3A00678861 /* DataController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 771DADCD14047E3A00678861 /* DataController.cpp */; };
 		771DADD114047FAC00678861 /* VideoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 771DADD014047FAC00678861 /* VideoController.cpp */; };
 		771DADE11404806D00678861 /* PropertyXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 771DADDE1404806D00678861 /* PropertyXMLParser.cpp */; };
@@ -116,6 +118,12 @@
 		77F4EE34140A3D6B007B45F4 /* ofxSimpleGuiPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77F4EE1D140A3D6B007B45F4 /* ofxSimpleGuiPage.cpp */; };
 		77F4EE35140A3D6B007B45F4 /* ofxSimpleGuiToo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77F4EE1F140A3D6B007B45F4 /* ofxSimpleGuiToo.cpp */; };
 		77F4EE36140A3D6B007B45F4 /* ofxSimpleGuiValueControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77F4EE21140A3D6B007B45F4 /* ofxSimpleGuiValueControl.cpp */; };
+		77F4F25E140B3E2E007B45F4 /* VideoView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F25D140B3E2E007B45F4 /* VideoView.cpp */; };
+		77F4F39D140B5EC0007B45F4 /* ofxShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F39B140B5EC0007B45F4 /* ofxShader.cpp */; };
+		77F4F540140B7823007B45F4 /* blur_vertical.vert in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F53F140B7823007B45F4 /* blur_vertical.vert */; };
+		77F4F542140B7835007B45F4 /* blur_vertical.frag in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F541140B7835007B45F4 /* blur_vertical.frag */; };
+		77F4F544140B784D007B45F4 /* blur_horizontal.vert in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F543140B784D007B45F4 /* blur_horizontal.vert */; };
+		77F4F546140B785D007B45F4 /* blur_horizontal.frag in Sources */ = {isa = PBXBuildFile; fileRef = 77F4F545140B785D007B45F4 /* blur_horizontal.frag */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -186,6 +194,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		77070C0D140BBFC200D62BC4 /* blend.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blend.vert; path = bin/data/shaders/blend.vert; sourceTree = SOURCE_ROOT; };
+		77070C0F140BBFD100D62BC4 /* blend.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blend.frag; path = bin/data/shaders/blend.frag; sourceTree = SOURCE_ROOT; };
 		771DADCC14047E3A00678861 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
 		771DADCD14047E3A00678861 /* DataController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataController.cpp; sourceTree = "<group>"; };
 		771DADCF14047FAC00678861 /* VideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoController.h; sourceTree = "<group>"; };
@@ -755,6 +765,14 @@
 		77F4EF33140A4B6F007B45F4 /* MSAInterpolator3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAInterpolator3D.h; sourceTree = "<group>"; };
 		77F4EF34140A4B6F007B45F4 /* MSAInterpolatorT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAInterpolatorT.h; sourceTree = "<group>"; };
 		77F4F02D140A7980007B45F4 /* ViewPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPort.h; sourceTree = "<group>"; };
+		77F4F25C140B3E2E007B45F4 /* VideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoView.h; sourceTree = "<group>"; };
+		77F4F25D140B3E2E007B45F4 /* VideoView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoView.cpp; sourceTree = "<group>"; };
+		77F4F39B140B5EC0007B45F4 /* ofxShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShader.cpp; sourceTree = "<group>"; };
+		77F4F39C140B5EC0007B45F4 /* ofxShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxShader.h; sourceTree = "<group>"; };
+		77F4F53F140B7823007B45F4 /* blur_vertical.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blur_vertical.vert; path = bin/data/shaders/blur_vertical.vert; sourceTree = SOURCE_ROOT; };
+		77F4F541140B7835007B45F4 /* blur_vertical.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blur_vertical.frag; path = bin/data/shaders/blur_vertical.frag; sourceTree = SOURCE_ROOT; };
+		77F4F543140B784D007B45F4 /* blur_horizontal.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blur_horizontal.vert; path = bin/data/shaders/blur_horizontal.vert; sourceTree = SOURCE_ROOT; };
+		77F4F545140B785D007B45F4 /* blur_horizontal.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blur_horizontal.frag; path = bin/data/shaders/blur_horizontal.frag; sourceTree = SOURCE_ROOT; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -2804,6 +2822,8 @@
 				776FF391140377030048BC6B /* DebugView.cpp */,
 				773EBCFA14075687001C1BF6 /* SceneView.h */,
 				773EBCFB14075687001C1BF6 /* SceneView.cpp */,
+				77F4F25C140B3E2E007B45F4 /* VideoView.h */,
+				77F4F25D140B3E2E007B45F4 /* VideoView.cpp */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3126,6 +3146,37 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		77F4F389140B5D1C007B45F4 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				77F4F53F140B7823007B45F4 /* blur_vertical.vert */,
+				77F4F541140B7835007B45F4 /* blur_vertical.frag */,
+				77F4F543140B784D007B45F4 /* blur_horizontal.vert */,
+				77F4F545140B785D007B45F4 /* blur_horizontal.frag */,
+				77070C0D140BBFC200D62BC4 /* blend.vert */,
+				77070C0F140BBFD100D62BC4 /* blend.frag */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		77F4F399140B5EC0007B45F4 /* ofxShader */ = {
+			isa = PBXGroup;
+			children = (
+				77F4F39A140B5EC0007B45F4 /* src */,
+			);
+			name = ofxShader;
+			path = ../../../addons/ofxShader;
+			sourceTree = SOURCE_ROOT;
+		};
+		77F4F39A140B5EC0007B45F4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				77F4F39B140B5EC0007B45F4 /* ofxShader.cpp */,
+				77F4F39C140B5EC0007B45F4 /* ofxShader.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -3137,6 +3188,7 @@
 				771DB18514048ADA00678861 /* ofxXmlSettings */,
 				776FF27414035CFC0048BC6B /* ofxMidi */,
 				776FCC8B140201160048BC6B /* ofxFbo */,
+				77F4F399140B5EC0007B45F4 /* ofxShader */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -3334,6 +3386,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				77F4F389140B5D1C007B45F4 /* Shaders */,
 				771DB50D14053D2800678861 /* Config */,
 				776FCC5E1401FD010048BC6B /* Utilities */,
 				776FCC5D1401FCE90048BC6B /* Views */,
@@ -3589,6 +3642,14 @@
 				77F4EE34140A3D6B007B45F4 /* ofxSimpleGuiPage.cpp in Sources */,
 				77F4EE35140A3D6B007B45F4 /* ofxSimpleGuiToo.cpp in Sources */,
 				77F4EE36140A3D6B007B45F4 /* ofxSimpleGuiValueControl.cpp in Sources */,
+				77F4F25E140B3E2E007B45F4 /* VideoView.cpp in Sources */,
+				77F4F39D140B5EC0007B45F4 /* ofxShader.cpp in Sources */,
+				77F4F540140B7823007B45F4 /* blur_vertical.vert in Sources */,
+				77F4F542140B7835007B45F4 /* blur_vertical.frag in Sources */,
+				77F4F544140B784D007B45F4 /* blur_horizontal.vert in Sources */,
+				77F4F546140B785D007B45F4 /* blur_horizontal.frag in Sources */,
+				77070C0E140BBFC200D62BC4 /* blend.vert in Sources */,
+				77070C10140BBFD100D62BC4 /* blend.frag in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

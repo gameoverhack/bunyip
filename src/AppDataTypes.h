@@ -10,8 +10,6 @@
 #ifndef _H_APPDATATYPES
 #define _H_APPDATATYPES
 
-#define MAX_KINECT_LAYERS 4
-
 #include "ofMain.h"
 
 #include <boost/serialization/serialization.hpp>
@@ -185,11 +183,11 @@ public:
 	//void		setMessageMap(MessageType key) {_key = key;};
 	MessageType	getMessageMap() {return _key;};
 	
-	void		setParam1(int param1) {_param1 = NULL;};
-	int		getParam1() {return _param1;};
+	//void		setParam1(int &param1) {_param1 = NULL;};	// dummy (should never be called)
+	int			getParam1() {return *_param1;};				// dummy (should never be called)
 	
-	void		setParam2(int param2) {_param2 = NULL;};
-	int		getParam2() {return _param2;};
+	//void		setParam2(int &param2) {_param2 = NULL;};	// dummy (should never be called)
+	int			getParam2() {return *_param2;};				// dummy (should never be called)
 	
 private:
 	
@@ -198,30 +196,31 @@ private:
 	
 	MessageType	_key;
 	
-	int		_param1;
-	int		_param2;
+	int*		_param1; // dummy
+	int*		_param2; // dummy
 	
 };
 
-template <class MessageType, class Param1>
+template <class MessageType, typename Param1>
 class InputParams1 {
 
 public:
 	
 	//InputParams1() : _type("InputParams1"), _numParams(1) {};
-	InputParams1(MessageType key, Param1 param1) : _key(key), _param1(param1), _type("InputParams1"), _numParams(1) {};
-
+	InputParams1(MessageType key, Param1 &param1, bool parameter1IsPointer) : _key(key), _param1pnt(&param1), _type("InputParams1"), _numParams(1), _parameter1IsPointer(true) {};
+	InputParams1(MessageType key, Param1 param1) : _key(key), _param1abs(param1), _type("InputParams1"), _numParams(1), _parameter1IsPointer(false) {};
+	
 	string		getType() {return _type;};
 	int			getNumParams() {return _numParams;};
 	
 	//void		setMessageMap(MessageType key) {_key = key;};
 	MessageType	getMessageMap() {return _key;};
 	
-	void		setParam1(Param1 param1) {_param1 = param1;};
-	Param1		getParam1() {return _param1;};
+	//void		setParam1(Param1 &param1) {_param1 = &param1;};
+	Param1		getParam1() {if(_parameter1IsPointer) return *_param1pnt; else return _param1abs;};
 	
-	void		setParam2(int param2) {_param2 = NULL;};
-	int		getParam2() {return _param2;};
+	//void		setParam2(int &param2) {_param2pnt = NULL;};	// dummy (should never be called)
+	int			getParam2() {return *_param2pnt;};				// dummy (should never be called)
 	
 private:
 	
@@ -230,8 +229,12 @@ private:
 	
 	MessageType	_key;
 	
-	Param1		_param1;
-	int		_param2;
+	bool		_parameter1IsPointer;
+	
+	Param1		_param1abs;
+	int			_param2abs; // dummy
+	Param1*		_param1pnt;
+	int*		_param2pnt; // dummy
 	
 };
 
@@ -240,8 +243,12 @@ class InputParams2 {
 	
 public:
 	
-	//InputParams2() : _type("InputParams2"), _numParams(2) {};
-	InputParams2(MessageType key, Param1 param1, Param2 param2) : _key(key), _param1(param1), _param2(param2), _type("InputParams2"), _numParams(2) {};
+	InputParams2(MessageType key, Param1 param1, Param2 param2) 
+	: _key(key), _param1abs(param1), _param2abs(param2), _type("InputParams2"), _numParams(2), _parameter1IsPointer(false), _parameter2IsPointer(false) {};
+	InputParams2(MessageType key, Param1 & param1, Param2 param2, bool parameter1IsPointer) 
+	: _key(key), _param1pnt(&param1), _param2abs(param2), _type("InputParams2"), _numParams(2), _parameter1IsPointer(true), _parameter2IsPointer(false) {};
+	InputParams2(MessageType key, Param1 & param1, Param2 & param2, bool parameter1IsPointer, bool parameter2IsPointer) 
+	: _key(key), _param1pnt(&param1), _param2pnt(&param2), _type("InputParams2"), _numParams(2), _parameter1IsPointer(true), _parameter2IsPointer(true) {};
 
 	string		getType() {return _type;};
 	int			getNumParams() {return _numParams;};
@@ -249,11 +256,11 @@ public:
 	//void		setMessageMap(MessageType key) {_key = key;};
 	MessageType	getMessageMap() {return _key;};
 	
-	void		setParam1(Param1 param1) {_param1 = param1;};
-	Param1		getParam1() {return _param1;};
+	//void		setParam1(Param1 &param1) {_param1 = &param1;};
+	Param1		getParam1() {if(_parameter1IsPointer) return *_param1pnt; else return _param1abs;};
 	
-	void		setParam2(Param2 param2) {_param2 = param2;};
-	Param2		getParam2() {return _param2;};
+	//void		setParam2(Param2 &param2) {_param2 = &param2;};
+	Param2		getParam2() {if(_parameter2IsPointer) return *_param2pnt; else return _param2abs;};
 	
 private:
 	
@@ -262,8 +269,13 @@ private:
 	
 	MessageType	_key;
 	
-	Param1		_param1;
-	Param2		_param2;
+	bool		_parameter1IsPointer;
+	bool		_parameter2IsPointer;
+	
+	Param1*		_param1pnt;
+	Param2*		_param2pnt;
+	Param1		_param1abs;
+	Param2		_param2abs;
 	
 };
 

@@ -22,9 +22,29 @@ VideoController::~VideoController() {
 //--------------------------------------------------------------
 void VideoController::update() {
 	
+	Scene* currentScene = _appModel->getCurrentScene();
+	
+	for (int layer = 0; layer < currentScene->getNumberOfVideoLayers(); layer++) {
+		
+		VideoView* videoLayer			= currentScene->getVideoLayer(layer);
+		
+		videoLayer->getVideo()->update();
+		videoLayer->update();
+		
+	}
+	
 }
 
 //--------------------------------------------------------------
 void VideoController::setupVideoLayers() {
-
+	
+	Scene* currentScene = _appModel->getCurrentScene();
+	
+	for (int layer = 0; layer < currentScene->getNumberOfVideoLayers(); layer++) {
+		
+		VideoView* videoLayer			= currentScene->getVideoLayer(layer);
+		
+		if (videoLayer->getVideoPath() != "") videoLayer->loadMovie();
+		
+	}
 }

@@ -13,11 +13,13 @@
 #include "ofMain.h"
 
 #include "AppModel.h"
+#include "KeyboardModel.h"
 #include "BaseState.h"
 #include "DataController.h"
 #include "KeyboardController.h"
 #include "MouseController.h"
 #include "MidiController.h"
+#include "VideoController.h"
 #include "KinectController.h"
 
 #include "AppView.h"
@@ -40,7 +42,7 @@ public:
 	
 	void update();
 	void draw();
-	
+	string * getMSG() {return &msg;}
 private:
 	
 	void toggleFullscreen();
@@ -51,10 +53,11 @@ private:
 	KeyboardController*		_keyboardController;
 	MouseController*		_mouseController;
 	MidiController*			_midiController;
+	VideoController*		_videoController;
 	KinectController*		_kinectController;
 	
 	AppView*				_appView;
-	
+	string msg;
 };
 
 #endif

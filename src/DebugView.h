@@ -12,8 +12,9 @@
 #define _H_DEBUGVIEW
 
 #include "BaseView.h"
-#include "AppModel.h"
 #include "KinectModel.h"
+#include "AppModel.h"
+#include "KeyboardModel.h"
 
 class DebugView : public BaseView {
 	

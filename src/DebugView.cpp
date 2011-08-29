@@ -31,7 +31,7 @@ void DebugView::update() {
 	
 	if (boost::any_cast<bool>(_appModel->getProperty("showProps"))) {
 		msg += _appModel->getAllPropsAsList() + "\n";
-		msg += _appModel->_keyboardModel->getAllKeyboardUsageAsList(false) + "\n";
+		msg += _keyModel->getAllKeyboardUsageAsList(false) + "\n";
 		msg += _appModel->getAllStatesAsList() + "\n";
 	}
 	
@@ -50,8 +50,8 @@ void DebugView::update() {
 		
 		float x			= 10+(layer * ( 14 + kinectLayer->getWidth()/4.0f ));
 		float y			= 10;
-		float width		= 320.0f/kinectLayer->getWidth();
-		float height	= 240.0f/kinectLayer->getHeight();
+		float width		= kinectLayer->getWidth()/4.0f;
+		float height	= kinectLayer->getHeight()/4.0f;
 		string info		= "kLayer " + ofToString(layer) + " near: " + ofToString(kinectLayer->getNearThreshold()) + " far: " + ofToString(kinectLayer->getFarThreshold());
 
 		glTranslatef(0.0f, _viewHeight, 0.0f);
@@ -65,6 +65,25 @@ void DebugView::update() {
 		glPopMatrix();
 		
 	}
+	
+	glPushMatrix();
+	
+	ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
+	//ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
+	ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
+	ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
+	//ofxHandGenerator*	oniHandGen = _kinectModel->getONIHandGen();
+	
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	glScalef(0.5f, -0.5f, 1.0f);
+	glTranslatef(_viewWidth-oniDepthGen->getWidth()/2, -oniDepthGen->getHeight(), 0.0f);
+	oniDepthGen->draw();
+	oniUserGen->draw();
+	//oniHandGen->draw();
+	glTranslatef(oniDepthGen->getWidth(), 0.0f, 0.0f);
+	oniIRGen->draw();
+	
+	glPopMatrix();
 	
 	ofSetColor(0, 255, 255);
 	ofDrawBitmapString(msg, 20, 20);

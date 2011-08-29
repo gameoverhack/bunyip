@@ -12,7 +12,7 @@
 
 #include "ofMain.h"
 
-#include "AppModel.h"
+#include "KeyboardModel.h"
 //#include "BaseState.h"
 
 class KeyboardController : public ofBaseApp { //, public BaseState {

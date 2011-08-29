@@ -22,13 +22,6 @@ public:
 	KinectModel() {
 		
 		LOG_NOTICE("Constructing KinectModel");
-		
-		_oniContext = new ofxOpenNIContext();
-		_oniDepthGen = new ofxDepthGenerator();
-		_oniImageGen = new ofxImageGenerator();
-        _oniIRGen = new ofxIRGenerator();
-		_oniUserGen = new ofxUserGenerator();
-		_oniHandGen = new ofxHandGenerator();
 
 	};
 	
@@ -44,6 +37,30 @@ public:
 		delete _oniContext;
 		
 	};	
+	
+	bool setup() {
+		
+		LOG_NOTICE("Setting Up KinectModel");
+		
+		_oniContext = new ofxOpenNIContext();
+		_oniDepthGen = new ofxDepthGenerator();
+		_oniImageGen = new ofxImageGenerator();
+        _oniIRGen = new ofxIRGenerator();
+		_oniUserGen = new ofxUserGenerator();
+		_oniHandGen = new ofxHandGenerator();
+		
+		bool ok = true;
+		
+		ok = _oniContext->setup();
+		ok = _oniDepthGen->setup(_oniContext);
+		//ok = _oniImageGen->setup(oniContext);
+		ok = _oniIRGen->setup(_oniContext);
+		ok = _oniUserGen->setup(_oniContext);
+		ok = _oniHandGen->setup(_oniContext, 1);
+		
+		return ok;
+		
+	}
 	
 	ofxOpenNIContext*	getONIContext() {return _oniContext;};
 	ofxDepthGenerator*	getONIDepthGen() {return _oniDepthGen;};

@@ -13,6 +13,8 @@
 #include "BaseView.h"
 #include "AppModel.h"
 
+#include "ofxShader.h"
+
 class SceneView : public BaseView {
 	
 public:
@@ -24,6 +26,9 @@ public:
 	
 private:
 	
+	ofxShader				_shaders[3];
+	ofTexture _shader1Tex, _shader2Tex;
+	ofxFbo _shader1FBO, _shader2FBO;
 };
 
 #endif

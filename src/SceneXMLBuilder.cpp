@@ -45,7 +45,6 @@ void SceneXMLBuilder::buildXML(){
 
 			_xml.addTag("kinectLayer");
 			
-			//_xml.addAttribute("kinectLayer", "id", kinectLayer->getInstanceID(), layer);
 			_xml.addAttribute("kinectLayer", "width", kinectLayer->getWidth(), layer);
 			_xml.addAttribute("kinectLayer", "height", kinectLayer->getHeight(), layer);
 			_xml.addAttribute("kinectLayer", "nearThreshold", kinectLayer->getNearThreshold(), layer);
@@ -54,14 +53,6 @@ void SceneXMLBuilder::buildXML(){
 			_xml.pushTag("kinectLayer", layer);
 			
 			_xml.addTag("viewPort");
-			
-			//_xml.addAttribute("viewPort", "id", viewPort->getID(), 0);
-			//_xml.addAttribute("viewPort", "name", viewPort->getName(), 0);
-
-			
-			
-			
-			//_xml.addTag("dimensions");
 			
 			_xml.addAttribute("viewPort", "x", viewPort->getX(), 0);
 			_xml.addAttribute("viewPort", "y", viewPort->getY(), 0);
@@ -79,13 +70,21 @@ void SceneXMLBuilder::buildXML(){
 				
 			}
 			
-			//_xml.popTag();
 			_xml.popTag();
 			_xml.popTag();
 			
 		}
 		
-		if (scene->getNumberOfVideoLayers() > 0) {
+		for (int layer = 0; layer < scene->getNumberOfVideoLayers(); layer++) {
+			
+			VideoView* videoLayer		= scene->getVideoLayer(layer);
+			//ViewPort* viewPort			= kinectLayer->getViewPort();
+			
+			_xml.addTag("videoLayer");
+			
+			_xml.addAttribute("videoLayer", "videoPath", videoLayer->getVideoPath(), layer);
+			_xml.addAttribute("videoLayer", "width", videoLayer->getWidth(), layer);
+			_xml.addAttribute("videoLayer", "height", videoLayer->getHeight(), layer);
 			
 		}
 

@@ -24,6 +24,48 @@ public:
 		LOG_NOTICE("Destructing KeyboardModel");
 	};	
 	
+	
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams0<KeyMessage> inputParams(keyboardMessage);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
+	template<class Param1>
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall, Param1 param1) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams1<KeyMessage, Param1> inputParams(keyboardMessage, param1);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
+	template<class Param1>
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall, Param1 &param1, bool variableIsPointer) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams1<KeyMessage, Param1> inputParams(keyboardMessage, &param1);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
+	template<class Param1, class Param2>
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall, Param1 param1, Param2 param2) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams2<KeyMessage, Param1, Param2> inputParams(keyboardMessage, param1, param2);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
+	template<class Param1, class Param2>
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall, Param1 &param1, Param2 param2, bool parameter1IsPointer) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams2<KeyMessage, Param1, Param2> inputParams(keyboardMessage, &param1, param2);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
+	template<class Param1, class Param2>
+	void registerKey(int key, key_st keyType, string helpMessage, string functionToCall, Param1 &param1, Param2 &param2, bool parameter1IsPointer, bool parameter2IsPointer) {
+		KeyMessage keyboardMessage(key, keyType, 0);
+		InputParams2<KeyMessage, Param1, Param2> inputParams(keyboardMessage, &param1, &param2);
+		registerInputToFunction(functionToCall, inputParams, helpMessage);
+	}
+	
 	// function registration for dynamic/virtualization
 	template <class DelegateType>
 	void registerFunction(string uniqueFunctionID, DelegateType delegate) {
@@ -52,7 +94,7 @@ public:
 						params << "(" << inputParameters.getParam1() << ")";
 						break;
 					case 2:
-						params << "(" << inputParameters.getParam1() << ", " + inputParameters.getParam1() << ")";
+						params << "(" << inputParameters.getParam1() << ", " << inputParameters.getParam1() << ")";
 						break;
 				}
 				
@@ -262,5 +304,11 @@ private:
 	};
 	
 };
+
+typedef Singleton<KeyboardModel> KeyboardModelSingleton;					// Global declaration
+
+static KeyboardModel * _keyModel	= KeyboardModelSingleton::Instance();	// this is my idea of a compromise:
+// no defines, keeps introspection
+// but allows data sharing between classes
 
 #endif

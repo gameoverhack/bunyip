@@ -37,15 +37,14 @@ void SceneXMLParser::parseXML(){
 		}
 		
 		KinectView* kinectLayers[MAX_KINECT_LAYERS];
-		bool hasLayers = false;
+		bool hasKinectLayers = false;
 		
 		_xml.pushTag("scene", node);
 		
 		for (int layer = 0; layer < _xml.getNumTags("kinectLayer"); layer++) {
 			
-			hasLayers = true;
+			hasKinectLayers = true;
 			
-			//int layerID				= _xml.getAttribute("kinectLayer", "id", -1, layer);
 			float layerWidth		= _xml.getAttribute("kinectLayer", "width", -1.0f, layer);
 			float layerHeight		= _xml.getAttribute("kinectLayer", "height", -1.0f, layer);
 			int layerNearThresh		= _xml.getAttribute("kinectLayer", "nearThreshold", 0, layer);
@@ -59,11 +58,6 @@ void SceneXMLParser::parseXML(){
 			
 			_xml.pushTag("kinectLayer", layer);
 			
-			//int viewportID			= _xml.getAttribute("viewPort", "id", -1, 0);
-			//string viewportName		= _xml.getAttribute("viewPort", "name", "error", 0);
-			
-			
-			
 			float viewportX			= _xml.getAttribute("viewPort", "x", -1.0f, 0);
 			float viewportY			= _xml.getAttribute("viewPort", "y", -1.0f, 0);
 			float viewportWidth		= _xml.getAttribute("viewPort", "width", -1.0f, 0);
@@ -72,7 +66,6 @@ void SceneXMLParser::parseXML(){
 			ofPoint* viewportCorners = new ofPoint[4];
 			
 			_xml.pushTag("viewPort", 0);
-			//_xml.pushTag("dimensions", 0);
 			
 			for (int corner = 0; corner < 4; corner++) {
 				viewportCorners[corner].x = _xml.getAttribute("corner", "x", 0.0f, corner);
@@ -87,13 +80,33 @@ void SceneXMLParser::parseXML(){
 			ViewPort * viewPort = new ViewPort(viewportX, viewportY, viewportWidth, viewportHeight, viewportCorners);
 			kinectLayers[layer] = new KinectView(layerWidth, layerHeight, layer, viewPort, layerNearThresh, layerFarThresh);
 			
-			//_xml.popTag();
 			_xml.popTag();
 			_xml.popTag();
 			
 		}
 		
-		Scene* scene = new Scene(sceneName, numKinectLayers, numVideoLayers, sceneWidth, sceneHeight, (hasLayers ? kinectLayers : NULL));
+		VideoView* videoLayers[MAX_VIDEO_LAYERS];
+		bool hasVideoLayers = false;
+		
+		for (int layer = 0; layer < _xml.getNumTags("videoLayer"); layer++) {
+			
+			hasVideoLayers = true;
+			
+			string videoPath	=_xml.getAttribute("videoLayer", "videoPath", "error", layer);
+			float videoWidth	= _xml.getAttribute("videoLayer", "width", -1.0f, 0);
+			float videoHeight	= _xml.getAttribute("videoLayer", "height", -1.0f, 0);
+			
+			videoLayers[layer]	= new VideoView(videoWidth, videoHeight, layer, videoPath);
+			
+		}
+		
+		Scene* scene = new Scene(sceneName, 
+								 numKinectLayers, 
+								 numVideoLayers, 
+								 sceneWidth, 
+								 sceneHeight, 
+								 (hasKinectLayers ? kinectLayers : NULL), 
+								 (hasVideoLayers ? videoLayers : NULL));
 		
 		_appModel->setScene(scene);
 		

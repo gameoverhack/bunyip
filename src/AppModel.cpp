@@ -186,30 +186,16 @@ void AppModel::setProperty(string propName, boost::any propVal) {
 }
 
 //--------------------------------------------------------------
-void AppModel::incrementIntProperty(string propName, int propVal) {
+void AppModel::adjustIntProperty(string propName, int amount) {
 	
-	setProperty(propName, boost::any_cast<int>(_anyProps[propName]) + propVal);
-	
-}
-
-//--------------------------------------------------------------
-void AppModel::decrementIntProperty(string propName, int propVal) {
-	
-	setProperty(propName, boost::any_cast<int>(_anyProps[propName]) - propVal);
+	setProperty(propName, boost::any_cast<int>(_anyProps[propName]) + amount);
 	
 }
 
 //--------------------------------------------------------------
-void AppModel::incrementFloatProperty(string propName, float propVal) {
+void AppModel::adjustFloatProperty(string propName, float amount) {
 	
-	setProperty(propName, boost::any_cast<float>(_anyProps[propName]) + propVal);
-	
-}
-
-//--------------------------------------------------------------
-void AppModel::decrementFloatProperty(string propName, float propVal) {
-	
-	setProperty(propName, boost::any_cast<float>(_anyProps[propName]) - propVal);
+	setProperty(propName, boost::any_cast<float>(_anyProps[propName]) + amount);
 	
 }
 

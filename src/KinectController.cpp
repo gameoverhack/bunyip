@@ -15,26 +15,8 @@ KinectController::KinectController() {
 	LOG_NOTICE("Constructing DataController");
 	
     registerStates();
-	
-	_kinectModel = new KinectModel();
-	
-	ofxOpenNIContext*	oniContext = _kinectModel->getONIContext();
-	ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
-	ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
-    ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
-	ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
-	ofxHandGenerator*	oniHandGen = _kinectModel->getONIHandGen();
-	
-	bool ok;
-	
-	ok = oniContext->setup();
-	ok = oniDepthGen->setup(oniContext);
-	//ok = oniImageGen->setup(oniContext);
-    ok = oniIRGen->setup(oniContext);
-	ok = oniUserGen->setup(oniContext);
-	ok = oniHandGen->setup(oniContext, 1);
 
-	if (ok) {
+	if (_kinectModel->setup()) {
 		setState(kKINECTCONTROLLER_READY);
 	} else setState(kKINECTCONTROLLER_ERROR);
 	
@@ -132,7 +114,6 @@ void KinectController::setupKinectLayers() {
 		for (int layer = 0; layer < numberOfKinectLayers; layer++) {
 			
 			KinectView * kinectLayer	= currentScene->getKinectLayer(layer);
-			
 			oniDepthGen->setDepthThreshold(layer, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());
 		}
 	
@@ -162,43 +143,17 @@ void KinectController::update() {
 		
 		for (int layer = 0; layer < currentScene->getNumberOfKinectLayers(); layer++) {
 			
-			KinectView* kinectLayer				= currentScene->getKinectLayer(layer);
+			ofxDepthGenerator* oniDepthGen		= _kinectModel->getONIDepthGen();
+			KinectView* kinectLayer			= currentScene->getKinectLayer(layer);
 			unsigned char* depthPixels			= kinectLayer->getDepthPixels();
 			ofxCvGrayscaleImage* depthImage		= kinectLayer->getDepthImage();
 			ofxCvContourFinder* depthContour	= kinectLayer->getDepthContour();
-			//vector<ofPoint>* depthSmooth		= kinectLayer->_depthSmooth;
 			
-			depthPixels	= oniDepthGen->getDepthPixels(layer);
-			
+			depthPixels	= oniDepthGen->getDepthPixels(layer);	
 			depthImage->setFromPixels(depthPixels, (int)oniDepthGen->getWidth(), (int)oniDepthGen->getHeight());
-			
-			int nBlobs = depthContour->findContours(*depthImage, 1000, 200000, 20, true, false, 0.1);
-			
+			int nBlobs = depthContour->findContours(*depthImage, 1000, 200000, 20, true, false, 0.05);
 			kinectLayer->update();
 			
-//			vector<ofPoint> pts;
-//			
-//			for (int i = 0; i < nBlobs; i++) {
-//				for (int j = 0; j < depthContour->blobs[i].pts.size(); j++) {
-//					pts.push_back(ofPoint(depthContour->blobs[i].pts[j].x, depthContour->blobs[i].pts[j].y));
-//				}
-//			}
-//			
-//			smoothPoints(pts, depthSmooth, 0.1);
-			
-			
-//			kinectLayer->spline2D.clear();
-//			
-//			for (int i = 0; i < nBlobs; i++) {
-//				for (int j = 0; j < depthContour->blobs[i].pts.size(); j++) {
-//					if (j%20 == 0) {
-//						MSA::Vec2f pt = MSA::Vec2f(depthContour->blobs[i].pts[j].x, depthContour->blobs[i].pts[j].y);
-//						kinectLayer->spline2D.push_back(pt);
-//					}
-//					
-//				}
-//			}
-
 		}
 		
 	}
