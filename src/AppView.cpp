@@ -34,7 +34,7 @@ AppView::~AppView() {
 
 void AppView::update() {
 	
-	ofBackground(0, 0, 0);
+	ofBackground(255, 255, 255);
 	
 	if(false) { //_appModel->checkState(kAPP_LOADING)){
 		//_loadingView->update();
@@ -50,6 +50,13 @@ void AppView::update() {
 
 void AppView::draw() {
 	
+    float displayOffsetX = 0;
+	
+	if (true) {//boost::any_cast<bool>(_appModel->getProperty("showDualScreen"))) {
+		displayOffsetX = ofGetWidth() - 1024.0f;
+        
+	}
+
     float width = CLAMP((float)ofGetWidth(), 0.0f , 1024.0f);
     float height = CLAMP((float)ofGetHeight(), 0.0f , 768.0f);
 	
@@ -63,8 +70,8 @@ void AppView::draw() {
 		// options for solving include: use OSX and ofxCocoa or look into multiple openGL contexts and
 		// shared textures and/or switched context drawing...
 		// ...see http://forum.openframeworks.cc/index.php/topic,4872.0.html
-		
 		_sceneView->draw(0, 0, width, height);
+		_sceneView->draw(displayOffsetX, 0, width, height);
 			
 		
 		if(boost::any_cast<bool>(_appModel->getProperty("showDebug"))){

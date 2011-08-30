@@ -130,16 +130,16 @@ void KinectController::update() {
 		
 		ofxOpenNIContext*	oniContext = _kinectModel->getONIContext();
 		ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
-        //ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
-        ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
-		ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
-		ofxHandGenerator*	oniHandGen = _kinectModel->getONIHandGen();
+        ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
+        //ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
+		//ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
+		//ofxHandGenerator*	oniHandGen = _kinectModel->getONIHandGen();
 		
 		oniContext->update();
 		oniDepthGen->update();
-		//oniImageGen->update();
-        oniIRGen->update();
-		oniUserGen->update();
+		oniImageGen->update();
+        //oniIRGen->update();
+		//oniUserGen->update();
 		
 		if (currentScene == NULL) return;
 		
@@ -153,7 +153,7 @@ void KinectController::update() {
 			
 			depthPixels	= oniDepthGen->getDepthPixels(layer);	
 			depthImage->setFromPixels(depthPixels, (int)oniDepthGen->getWidth(), (int)oniDepthGen->getHeight());
-			int nBlobs = depthContour->findContours(*depthImage, 1000, 200000, 20, true, false, 0.05);
+			int nBlobs = depthContour->findContours(*depthImage, 1000, 200000, 20, true, false, 0.2);
 			kinectLayer->update();
 			
 		}

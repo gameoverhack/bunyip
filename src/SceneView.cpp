@@ -66,49 +66,52 @@ void SceneView::update() {
 	}
 	_shader1FBO.end();
 	
-	int blurSize = boost::any_cast<int>(_appModel->getProperty("blurIterations"));
+    if(currentScene->getNumberOfKinectLayers() > 0) {
+        int blurSize = boost::any_cast<int>(_appModel->getProperty("blurIterations"));
+        
+        for (int pass = 0; pass < pow((double)blurSize, 2); pass++) {
+            
+            _shader2FBO.begin();
+            {
+                glClearColor(0.0, 0.0, 0.0, 1.0); // transparent clear colour
+                glClear(GL_COLOR_BUFFER_BIT);
+                _shaders[0].begin();
+                {
+                    _shaders[0].setTexture("texture", _shader1Tex, 1);
+                    _shaders[0].setUniform1f("blurSize", (float)blurSize);
+                    ofSetColor(255, 255, 255, 255);
+                    glBegin(GL_TRIANGLE_STRIP);
+                    glTexCoord2f(0, 0);	glVertex2f(0, 0);
+                    glTexCoord2f(0, _viewHeight); glVertex2f(0, _viewHeight);
+                    glTexCoord2f(_viewWidth, 0); glVertex2f(_viewWidth, 0);
+                    glTexCoord2f(_viewWidth, _viewHeight); glVertex2f(_viewWidth, _viewHeight);
+                    glEnd();
+                }
+                _shaders[0].end();
+            }
+            _shader2FBO.end();
+            
+            _shader1FBO.begin();
+            {
+                _shaders[1].begin();
+                {
+                    _shaders[1].setTexture("texture", _shader2Tex, 1);
+                    _shaders[1].setUniform1f("blurSize", (float)blurSize);
+                    ofSetColor(255, 255, 255, 255);
+                    glBegin(GL_TRIANGLE_STRIP);
+                    glTexCoord2f(0, 0);	glVertex2f(0, 0);
+                    glTexCoord2f(0, _viewHeight); glVertex2f(0, _viewHeight);
+                    glTexCoord2f(_viewWidth, 0); glVertex2f(_viewWidth, 0);
+                    glTexCoord2f(_viewWidth, _viewHeight); glVertex2f(_viewWidth, _viewHeight);
+                    glEnd();
+                    _shaders[1].end();
+                }
+            }
+            _shader1FBO.end();
+            
+        }
+    }
 	
-	for (int pass = 0; pass < pow((double)blurSize, 2); pass++) {
-		
-		_shader2FBO.begin();
-		{
-			glClearColor(0.0, 0.0, 0.0, 1.0); // transparent clear colour
-			glClear(GL_COLOR_BUFFER_BIT);
-			_shaders[0].begin();
-			{
-				_shaders[0].setTexture("texture", _shader1Tex, 1);
-				_shaders[0].setUniform1f("blurSize", (float)blurSize);
-				ofSetColor(255, 255, 255, 255);
-				glBegin(GL_TRIANGLE_STRIP);
-				glTexCoord2f(0, 0);	glVertex2f(0, 0);
-				glTexCoord2f(0, _viewHeight); glVertex2f(0, _viewHeight);
-				glTexCoord2f(_viewWidth, 0); glVertex2f(_viewWidth, 0);
-				glTexCoord2f(_viewWidth, _viewHeight); glVertex2f(_viewWidth, _viewHeight);
-				glEnd();
-			}
-			_shaders[0].end();
-		}
-		_shader2FBO.end();
-		
-		_shader1FBO.begin();
-		{
-			_shaders[1].begin();
-			{
-				_shaders[1].setTexture("texture", _shader2Tex, 1);
-				_shaders[1].setUniform1f("blurSize", (float)blurSize);
-				ofSetColor(255, 255, 255, 255);
-				glBegin(GL_TRIANGLE_STRIP);
-				glTexCoord2f(0, 0);	glVertex2f(0, 0);
-				glTexCoord2f(0, _viewHeight); glVertex2f(0, _viewHeight);
-				glTexCoord2f(_viewWidth, 0); glVertex2f(_viewWidth, 0);
-				glTexCoord2f(_viewWidth, _viewHeight); glVertex2f(_viewWidth, _viewHeight);
-				glEnd();
-				_shaders[1].end();
-			}
-		}
-		_shader1FBO.end();
-		
-	}
 	
 	_shader2FBO.begin();
 	{

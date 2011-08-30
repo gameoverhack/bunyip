@@ -31,9 +31,9 @@ public:
 		
 		delete _oniDepthGen;
 		delete _oniImageGen;
-        delete _oniIRGen;
-		delete _oniUserGen;
-		delete _oniHandGen;
+        //delete _oniIRGen;
+		//delete _oniUserGen;
+		//delete _oniHandGen;
 		delete _oniContext;
 		
 	};	
@@ -45,18 +45,18 @@ public:
 		_oniContext = new ofxOpenNIContext();
 		_oniDepthGen = new ofxDepthGenerator();
 		_oniImageGen = new ofxImageGenerator();
-        _oniIRGen = new ofxIRGenerator();
-		_oniUserGen = new ofxUserGenerator();
-		_oniHandGen = new ofxHandGenerator();
+        //_oniIRGen = new ofxIRGenerator();
+		//_oniUserGen = new ofxUserGenerator();
+		//_oniHandGen = new ofxHandGenerator();
 		
 		bool ok = true;
 		
 		ok = _oniContext->setup();
 		ok = _oniDepthGen->setup(_oniContext);
-		//ok = _oniImageGen->setup(oniContext);
-		ok = _oniIRGen->setup(_oniContext);
-		ok = _oniUserGen->setup(_oniContext);
-		ok = _oniHandGen->setup(_oniContext, 1);
+		ok = _oniImageGen->setup(_oniContext);
+		//ok = _oniIRGen->setup(_oniContext);
+		//ok = _oniUserGen->setup(_oniContext);
+		//ok = _oniHandGen->setup(_oniContext, 1);
 		
 		return ok;
 		

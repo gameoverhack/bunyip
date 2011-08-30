@@ -23,12 +23,6 @@ void DebugView::update() {
 	
 	if (currentScene== NULL) return;
 	
-	float displayOffsetX = 0;
-	
-	if (boost::any_cast<bool>(_appModel->getProperty("showDualScreen"))) {
-		displayOffsetX = ofGetWidth() - 1024.0f;
-	}
-	
 	string msg = "FPS: " + ofToString(ofGetFrameRate()) + "\n\n";
 	
 	if (boost::any_cast<bool>(_appModel->getProperty("showProps"))) {
@@ -71,9 +65,9 @@ void DebugView::update() {
 	glPushMatrix();
 	
 	ofxDepthGenerator*	oniDepthGen = _kinectModel->getONIDepthGen();
-	//ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
-	ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
-	ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
+	ofxImageGenerator*	oniImageGen = _kinectModel->getONIImageGen();
+	//ofxIRGenerator*     oniIRGen = _kinectModel->getONIIRGen();
+	//ofxUserGenerator*	oniUserGen = _kinectModel->getONIUserGen();
 	//ofxHandGenerator*	oniHandGen = _kinectModel->getONIHandGen();
 	
 	glTranslatef(0.0f, 0.0f, 0.0f);
@@ -83,8 +77,8 @@ void DebugView::update() {
 	//oniUserGen->draw();
 	//oniHandGen->draw();
 	glTranslatef(oniDepthGen->getWidth(), 0.0f, 0.0f);
-	oniIRGen->draw();
-	
+	//oniIRGen->draw();
+	oniImageGen->draw();
 	glPopMatrix();
 	
 	ofSetColor(0, 255, 255);
