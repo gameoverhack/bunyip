@@ -25,7 +25,6 @@
 
 //#define SANS_KINECT
 
-
 using std::map;
 using std::vector;
 using std::string;

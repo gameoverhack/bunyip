@@ -38,6 +38,8 @@ void SceneView::update() {
 	
 	Scene* currentScene = _appModel->getCurrentScene();
 	
+	if (currentScene== NULL) return;
+	
 	_shader1FBO.begin();
 	{
 

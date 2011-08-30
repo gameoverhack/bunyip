@@ -15,7 +15,7 @@ AppModel::AppModel() {
     LOG_NOTICE("Constructing AppModel");
 	
     //registerStates();
-	
+	_currentScene = NULL;
 }
 
 //--------------------------------------------------------------
@@ -76,11 +76,17 @@ bool AppModel::setCurrentScene(string sceneName) {
 	return false;
 }
 
-bool AppModel::nextScene(){
+bool AppModel::nextScene() {
+	
+	if (_currentScene == NULL) {
+		setCurrentScene(_scenes.begin()->first);
+		return true;
+	}
+	
 	string nextname;
 	// find current scene in map
 	map<string, Scene *>::iterator iter;
-	for(iter = _scenes.begin(); iter != _scenes.end(); iter++){
+	for(iter = _scenes.begin(); iter != _scenes.end(); iter++) {
 		if(iter->first == _currentScene->getName()){
 			iter++; // found current, increment to next
 			// is iter end? set name to first, else use iter name
@@ -93,7 +99,13 @@ bool AppModel::nextScene(){
 	return false; // should never get here, can probably just be void return
 }
 
-bool AppModel::previousScene(){
+bool AppModel::previousScene() {
+	
+	if (_currentScene == NULL) {
+		setCurrentScene(_scenes.rbegin()->first);
+		return true;
+	}
+	
 	string previousname;
 	// find current scene in map
 	map<string, Scene *>::iterator iter;
@@ -111,7 +123,7 @@ bool AppModel::previousScene(){
 }
 
 Scene * AppModel::getCurrentScene(){
-	assert(_currentScene != NULL);
+	//assert(_currentScene != NULL);
 	return _currentScene;
 }
 

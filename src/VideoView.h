@@ -27,9 +27,6 @@ public:
 	
 	void loadMovie(string videoPath = "");
 	
-	void errored(int & e);
-	void loaded(string & e);
-	
 private:
 	
 	goThreadedVideo*		_video;

@@ -21,6 +21,8 @@ void DebugView::update() {
 	
 	Scene* currentScene = _appModel->getCurrentScene();
 	
+	if (currentScene== NULL) return;
+	
 	float displayOffsetX = 0;
 	
 	if (boost::any_cast<bool>(_appModel->getProperty("showDualScreen"))) {
@@ -78,7 +80,7 @@ void DebugView::update() {
 	glScalef(0.5f, -0.5f, 1.0f);
 	glTranslatef(_viewWidth-oniDepthGen->getWidth()/2, -oniDepthGen->getHeight(), 0.0f);
 	oniDepthGen->draw();
-	oniUserGen->draw();
+	//oniUserGen->draw();
 	//oniHandGen->draw();
 	glTranslatef(oniDepthGen->getWidth(), 0.0f, 0.0f);
 	oniIRGen->draw();

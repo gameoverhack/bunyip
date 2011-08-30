@@ -31,9 +31,6 @@ VideoView::VideoView(float width, float height, int layerIndex, string videoPath
 	
 	_video = new goThreadedVideo();
 	
-	ofAddListener(_video->loadDone, this, &VideoView::loaded);
-	ofAddListener(_video->error, this, &VideoView::errored);
-	
 	//if (videoPath != "") loadMovie();
 	
 }
@@ -73,15 +70,3 @@ void VideoView::loadMovie(string videoPath) {
 }
 
 
-//--------------------------------------------------------------
-void VideoView::errored(int & e) {
-	// nothing
-	cout << "*******************************ERROR" << endl;
-}
-
-
-//--------------------------------------------------------------
-void VideoView::loaded(string & e) {
-	// nothing
-	cout << "*******************************LOADED" << endl;
-}

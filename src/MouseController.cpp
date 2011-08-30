@@ -61,6 +61,8 @@ void MouseController::mouseDragged(ofMouseEventArgs &e) {
 		Scene* currentScene				= _appModel->getCurrentScene();
 		ViewPort * currentViewPort		= currentScene->getKinectLayer(_currentViewPortIndex)->getViewPort();
 		
+		if (currentScene == NULL) return;
+		
 		if(_currentViewPortCorner != -1){
 			float scaleX = ((float)e.x - currentViewPort->getEditX() - (currentViewPort->getX()) * currentViewPort->getEditScaleX())/(currentViewPort->getWidth() * currentViewPort->getEditScaleX());
 			float scaleY = ((float)e.y - currentViewPort->getEditY() - (currentViewPort->getY()) * currentViewPort->getEditScaleY())/(currentViewPort->getHeight() * currentViewPort->getEditScaleY());
@@ -89,6 +91,8 @@ void MouseController::mousePressed(ofMouseEventArgs &e) {
 	
 	Scene* currentScene	= _appModel->getCurrentScene();
 	ViewPort * currentViewPort;
+	
+	if (currentScene == NULL) return;
 	
 	for (int i = 0; i < currentScene->getNumberOfKinectLayers(); i++) {
 		

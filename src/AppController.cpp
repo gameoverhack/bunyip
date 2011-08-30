@@ -59,6 +59,11 @@ AppController::AppController() {
 	_appModel->registerFunction("KinectController::toggleRegisterKinectViewport", 
 												MakeDelegate(_kinectController, &KinectController::toggleRegisterKinectViewport));
 
+	_appModel->registerFunction("AppController::nextScene", 
+								MakeDelegate(this, &AppController::nextScene));
+	
+	_appModel->registerFunction("AppController::previousScene", 
+								MakeDelegate(this, &AppController::previousScene));
 	
 	ofSetFullscreen(boost::any_cast<bool>(_appModel->getProperty("showFullscreen")));
 	
@@ -74,23 +79,15 @@ AppController::AppController() {
 	_keyModel->registerEvent('o', kKEY_DOWN, "increment current kinectLayer farThreshold", "KinectController::setFarThreshold", 10, true);
 	_keyModel->registerEvent('l', kKEY_DOWN, "decrement current kinectLayer farThreshold", "KinectController::setFarThreshold", -10, true);
 	
-	_appModel->registerFunction("AppController::test1", 
-								MakeDelegate(this, &AppController::test1));
-	
-	_appModel->registerFunction("AppController::test2", 
-								MakeDelegate(this, &AppController::test2));
-	
-	_appModel->registerFunction("AppController::test3", 
-								MakeDelegate(this, &AppController::test3));
+	_keyModel->registerEvent('.', kKEY_DOWN, "next scene", "AppController::nextScene");
+	_keyModel->registerEvent(',', kKEY_DOWN, "previous scene", "AppController::nextScene");
 	
 	_midiModel->registerEvent(1, 144, 36, 0, kMIDI_ANY, "toggle fullscreen/window", "AppController::toggleFullscreen");
-	_midiModel->registerEvent(1, 144, 37, 0, kMIDI_PASS_BYTE_ONE, "test1", "AppController::test1");
-	_midiModel->registerEvent(1, 144, 38, 0, kMIDI_PASS_BYTE_TWO, "test2", "AppController::test2", (string)"byteTwo");
-	_midiModel->registerEvent(1, 208, 0, 0, kMIDI_PASS_BYTE_BOTH, "test3", "AppController::test3");
+//	_midiModel->registerEvent(1, 144, 37, 0, kMIDI_PASS_BYTE_ONE, "test1", "AppController::test1");
+//	_midiModel->registerEvent(1, 144, 38, 0, kMIDI_PASS_BYTE_TWO, "test2", "AppController::test2", (string)"byteTwo");
+//	_midiModel->registerEvent(1, 208, 0, 0, kMIDI_PASS_BYTE_BOTH, "test3", "AppController::test3");
 
-	_appModel->setCurrentScene("test_scene");
-	_kinectController->setupKinectLayers();
-	_videoController->setupVideoLayers();
+
 	
 	//_appModel->getCurrentScene()->addVideoLayer();
 	//->getCurrentScene()->getVideoLayer(0)->loadMovie("/Users/gameover/Desktop/FolioBig/VimeoReady/MoralesVacircaGingoldEDIT.mp4");
@@ -130,6 +127,32 @@ void AppController::registerStates() {
 	_appModel->registerStatefulClass(typeid(*this).name());
 	
 	setState(kAPPCONTROLLER_INITING);
+	
+}
+
+//--------------------------------------------------------------
+void AppController::nextScene() {
+	_videoController->stopVideoLayers();
+	_appModel->nextScene();
+	_kinectController->setupKinectLayers();
+	_videoController->setupVideoLayers();
+}
+
+//--------------------------------------------------------------
+void AppController::previousScene() {
+	_videoController->stopVideoLayers();
+	_appModel->previousScene();
+	_kinectController->setupKinectLayers();
+	_videoController->setupVideoLayers();
+}
+
+//--------------------------------------------------------------
+void AppController::gotoScene(int sceneIndex) {
+	
+}
+
+//--------------------------------------------------------------
+void AppController::gotoScene(string sceneName) {
 	
 }
 

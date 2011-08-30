@@ -24,6 +24,8 @@ void VideoController::update() {
 	
 	Scene* currentScene = _appModel->getCurrentScene();
 	
+	if (currentScene == NULL) return;
+	
 	for (int layer = 0; layer < currentScene->getNumberOfVideoLayers(); layer++) {
 		
 		VideoView* videoLayer			= currentScene->getVideoLayer(layer);
@@ -40,11 +42,44 @@ void VideoController::setupVideoLayers() {
 	
 	Scene* currentScene = _appModel->getCurrentScene();
 	
+	if (currentScene == NULL) return;
+	 
+	for (int layer = 0; layer < currentScene->getNumberOfVideoLayers(); layer++) {
+		
+		VideoView* videoLayer			= currentScene->getVideoLayer(layer);
+		goThreadedVideo* video			= videoLayer->getVideo();
+		
+		video->setPaused(false);
+		//video->setFrame(0);
+		
+	}
+}
+
+//--------------------------------------------------------------
+void VideoController::stopVideoLayers() {
+	
+	Scene* currentScene = _appModel->getCurrentScene();
+	
+	if (currentScene== NULL) return;
+		
 	for (int layer = 0; layer < currentScene->getNumberOfVideoLayers(); layer++) {
 		
 		VideoView* videoLayer			= currentScene->getVideoLayer(layer);
 		
-		if (videoLayer->getVideoPath() != "") videoLayer->loadMovie();
-		
+		videoLayer->getVideo()->setPaused(true);
+		videoLayer->getVideo()->setFrame(0);
 	}
 }
+
+//--------------------------------------------------------------
+//void VideoController::errored(int & e) {
+//	// nothing
+//	cout << "*******************************ERROR" << endl;
+//}
+//
+//
+//--------------------------------------------------------------
+//void VideoController::loaded(string & e) {
+//	// nothing
+//	cout << "*******************************LOADED" << endl;
+//}

@@ -24,6 +24,10 @@ public:
 	void update();
 	
 	void setupVideoLayers();
+	void stopVideoLayers();
+	
+//	void errored(int & e);
+//	void loaded(string & e);
 	
 private:
 	

@@ -98,6 +98,17 @@ void SceneXMLParser::parseXML(){
 			
 			videoLayers[layer]	= new VideoView(videoWidth, videoHeight, layer, videoPath);
 			
+			videoLayers[layer]->loadMovie();
+			goThreadedVideo* video = videoLayers[layer]->getVideo();
+			
+			while (video->isLoading()) {
+				video->psuedoUpdate();
+				video->psuedoDraw();
+			}
+			
+			video->setPaused(true);
+			video->setFrame(0);
+			
 		}
 		
 		Scene* scene = new Scene(sceneName, 

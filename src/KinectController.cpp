@@ -141,6 +141,8 @@ void KinectController::update() {
         oniIRGen->update();
 		oniUserGen->update();
 		
+		if (currentScene == NULL) return;
+		
 		for (int layer = 0; layer < currentScene->getNumberOfKinectLayers(); layer++) {
 			
 			ofxDepthGenerator* oniDepthGen		= _kinectModel->getONIDepthGen();
