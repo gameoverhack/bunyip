@@ -42,7 +42,11 @@ public:
 	
 	void update();
 	void draw();
-	string * getMSG() {return &msg;}
+	
+	void test1(int byte1) {cout << byte1 << endl;};
+	void test2(string msg, int byte2) {cout << msg << " :: " << byte2 << endl;};
+	void test3(int byte1, int byte2) {cout << byte1 << " :: " << byte2 << endl;};
+	
 private:
 	
 	void toggleFullscreen();
@@ -57,7 +61,7 @@ private:
 	KinectController*		_kinectController;
 	
 	AppView*				_appView;
-	string msg;
+
 };
 
 #endif

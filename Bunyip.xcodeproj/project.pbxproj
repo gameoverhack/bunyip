@@ -196,6 +196,7 @@
 /* Begin PBXFileReference section */
 		77070C0D140BBFC200D62BC4 /* blend.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blend.vert; path = bin/data/shaders/blend.vert; sourceTree = SOURCE_ROOT; };
 		77070C0F140BBFD100D62BC4 /* blend.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blend.frag; path = bin/data/shaders/blend.frag; sourceTree = SOURCE_ROOT; };
+		77070F46140C586600D62BC4 /* MidiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiModel.h; sourceTree = "<group>"; };
 		771DADCC14047E3A00678861 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
 		771DADCD14047E3A00678861 /* DataController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataController.cpp; sourceTree = "<group>"; };
 		771DADCF14047FAC00678861 /* VideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoController.h; sourceTree = "<group>"; };
@@ -2806,6 +2807,7 @@
 				771DB244140497CB00678861 /* KinectModel.h */,
 				771DB2451404998900678861 /* KeyboardModel.h */,
 				773EBD1614075DB5001C1BF6 /* SceneDataType.h */,
+				77070F46140C586600D62BC4 /* MidiModel.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";

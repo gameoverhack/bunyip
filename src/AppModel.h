@@ -77,14 +77,19 @@ public:
 	string					getAllPropsAsList();
 	map<string, string>		getAllPropsNameTypeAsMap();
 	
-	//KinectModel*			_kinectModel;
-	//KeyboardModel*			_keyboardModel;
-	
 	void					registerStatefulClass(string className);
 	void					setRemoteState(string className, string state);
 	string					getRemoteState(string className);
 	
 	string					getAllStatesAsList();
+	
+	// function registration for dynamic/virtualization
+	template <class DelegateType>
+	void registerFunction(string uniqueFunctionID, DelegateType delegate) {
+		_registeredFunctions.insert(pair<string, DelegateMemento>(uniqueFunctionID, delegate.GetMemento()));
+	};
+
+	map<string, DelegateMemento>	_registeredFunctions; // dangerous but copies and pointers don't seem to work
 	
 private:
 	

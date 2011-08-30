@@ -32,6 +32,22 @@ enum key_st {
 	kKEY_UP
 };
 
+// TODO: Ranges??
+enum midi_ct {
+	kMIDI_ANY,
+	kMIDI_PASS_BYTE_TWO,
+	kMIDI_PASS_BYTE_ONE,
+	kMIDI_PASS_BYTE_BOTH,
+	kMIDI_EQUAL,
+	kMIDI_GREATER,
+	kMIDI_LESSER,
+	kMIDI_EQUAL_GREATER,
+	kMIDI_EQUAL_LESSER,
+	kMIDI_PASS_BYTE_TWO_INTERNAL_USE,
+	kMIDI_PASS_BYTE_ONE_INTERNAL_USE,
+	kMIDI_PASS_BYTE_BOTH_INTERNAL_USE
+};
+
 enum DelegateType {
 	GO_DELEGATE_NONE,
 	GO_DELEGATE_STRING,
@@ -82,8 +98,8 @@ class MidiMessage {
 
 public:
 	
-	MidiMessage(int port, int channel, int status, int byteOne, int byteTwo, double timestamp)
-	: _port(port), _channel(channel), _status(status), _byteOne(byteOne), _byteTwo(byteTwo), _timestamp(timestamp) {};
+	MidiMessage(int port, int channel, int status, int byteOne, int byteTwo, double timestamp, midi_ct comparisonType = kMIDI_ANY)
+	: _port(port), _channel(channel), _status(status), _byteOne(byteOne), _byteTwo(byteTwo), _timestamp(timestamp), _comparisonType(comparisonType) {};
 	
 	int const		getPort() const {return _port;};
     int	const		getChannel() const {return _channel;};
@@ -91,6 +107,7 @@ public:
     int const		getByteOne() const {return _byteOne;};
     int const		getByteTwo() const {return _byteTwo;};
     double const	getTimestamp() const {return _timestamp;};
+	midi_ct const	getComparisonType() const {return _comparisonType;};
 	
 	string	print(bool log = false) {
 		
@@ -100,13 +117,22 @@ public:
 			<< " status: " << getStatus() 
 			<< " byteOne: " << getByteOne() 
 			<< " byteTwo: " << getByteTwo() 
-			<< " timestamp: " << getTimestamp();
+			<< " timestamp: " << getTimestamp()
+			<< " comparison: " << getComparisonType();
 		
 		if (log) LOG_VERBOSE("MIDI: " + out.str());
 		
 		return out.str();
 		
 	};
+	
+	// NB: only checking byteOne and status -> upto program to evaluate byteTwo!!!
+	bool operator== ( const MidiMessage& rhs ) const {return (getStatus() == rhs.getStatus() && getByteOne() == rhs.getByteOne());};
+	bool operator!= ( const MidiMessage& rhs ) const {return (getStatus() != rhs.getStatus() || getByteOne() != rhs.getByteOne());};
+	bool operator<  ( const MidiMessage& rhs ) const {return (getStatus() < rhs.getStatus() || (!(getStatus() < rhs.getStatus()) && getByteOne() < rhs.getByteOne()));};
+	bool operator>  ( const MidiMessage& rhs ) const {return (getStatus() > rhs.getStatus() || (!(getStatus() > rhs.getStatus()) && getByteOne() > rhs.getByteOne()));};
+	bool operator<=  ( const MidiMessage& rhs ) const {return (getStatus() <= rhs.getStatus() && getByteOne() <= rhs.getByteOne());};
+	bool operator>=  ( const MidiMessage& rhs ) const {return (getStatus() >= rhs.getStatus() && getByteOne() >= rhs.getByteOne());};
 	
 private:
 	
@@ -116,6 +142,7 @@ private:
     const int		_byteOne;
     const int		_byteTwo;
     const double 	_timestamp;
+	const midi_ct	_comparisonType;
 
 };
 

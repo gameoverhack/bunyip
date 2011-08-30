@@ -13,7 +13,6 @@
 #include "ofMain.h"
 
 #include "KeyboardModel.h"
-//#include "BaseState.h"
 
 class KeyboardController : public ofBaseApp { //, public BaseState {
 	
@@ -24,14 +23,8 @@ public:
 	
 private:
 	
-	void test(string mov);
-	
-	void toggleBooleanProperty(string propName);
-	
 	void keyPressed  (ofKeyEventArgs &e);
 	void keyReleased (ofKeyEventArgs &e);
-	
-	void executeFunction(int key, key_st status);
 	
 };
 

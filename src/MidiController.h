@@ -13,11 +13,11 @@
 #include "ofMain.h"
 
 #include "AppModel.h"
-//#include "BaseState.h"
+#include "MidiModel.h"
 
 #include "ofxMidi.h"
 
-class MidiController : public ofBaseApp { //, public BaseState {
+class MidiController : public ofBaseApp {
 	
 public:
 	
@@ -29,8 +29,6 @@ private:
 	ofxMidiIn			_midiIn;
 	
 	void				midiMessage(ofxMidiEventArgs& eventArgs);
-	
-	void				executeFunction(int key);
 	
 };
 

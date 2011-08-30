@@ -41,40 +41,53 @@ AppController::AppController() {
 	//_appModel->setScene(new Scene("test_scene", 2, 0, 1024.0f, 768.0f));
 	//_appModel->setScene(new Scene("test2_scene", 2, 0, 1024.0f, 768.0f));
 	
-
-	_keyModel->registerFunction("AppModel::adjustIntProperty", 
+	_appModel->registerFunction("AppModel::adjustIntProperty", 
 												MakeDelegate(_appModel, &AppModel::adjustIntProperty));
 	
-	_keyModel->registerFunction("KinectController::setNearThreshold", 
+	_appModel->registerFunction("KinectController::setNearThreshold", 
 												MakeDelegate(_kinectController, &KinectController::setNearThreshold));
 
-	_keyModel->registerFunction("KinectController::setFarThreshold", 
+	_appModel->registerFunction("KinectController::setFarThreshold", 
 												MakeDelegate(_kinectController, &KinectController::setFarThreshold));
 	
-	_keyModel->registerFunction("AppModel::toggleBooleanProperty", 
+	_appModel->registerFunction("AppModel::toggleBooleanProperty", 
 												MakeDelegate(_appModel, &AppModel::toggleBooleanProperty));
 	
-	_keyModel->registerFunction("AppController::toggleFullscreen", 
+	_appModel->registerFunction("AppController::toggleFullscreen", 
 												MakeDelegate(this, &AppController::toggleFullscreen));
 	
-	_keyModel->registerFunction("KinectController::toggleRegisterKinectViewport", 
+	_appModel->registerFunction("KinectController::toggleRegisterKinectViewport", 
 												MakeDelegate(_kinectController, &KinectController::toggleRegisterKinectViewport));
 
 	
 	ofSetFullscreen(boost::any_cast<bool>(_appModel->getProperty("showFullscreen")));
 	
-	_keyModel->registerKey('f', kKEY_DOWN, "toggle fullscreen/window", "AppController::toggleFullscreen");
-	_keyModel->registerKey('r', kKEY_DOWN, "toggle kinect register viewport", "KinectController::toggleRegisterKinectViewport");
-	_keyModel->registerKey('p', kKEY_DOWN, "show all properties in debug view", "AppModel::toggleBooleanProperty", (string)"showProps");
-	_keyModel->registerKey('d', kKEY_DOWN, "show/hide debug view", "AppModel::toggleBooleanProperty", (string)"showDebug");
-	_keyModel->registerKey('s', kKEY_DOWN, "toggle dual screen draw", "AppModel::toggleBooleanProperty", (string)"showDualScreen");
-	_keyModel->registerKey('y', kKEY_DOWN, "increment blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", 1);
-	_keyModel->registerKey('h', kKEY_DOWN, "decrement blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", -1);
-	_keyModel->registerKey('i', kKEY_DOWN, "increment current kinectLayer nearThreshold", "KinectController::setNearThreshold", 10, true);
-	_keyModel->registerKey('k', kKEY_DOWN, "decrement current kinectLayer nearThreshold", "KinectController::setNearThreshold", -10, true);
-	_keyModel->registerKey('o', kKEY_DOWN, "increment current kinectLayer farThreshold", "KinectController::setFarThreshold", 10, true);
-	_keyModel->registerKey('l', kKEY_DOWN, "decrement current kinectLayer farThreshold", "KinectController::setFarThreshold", -10, true);
+	_keyModel->registerEvent('f', kKEY_DOWN, "toggle fullscreen/window", "AppController::toggleFullscreen");
+	_keyModel->registerEvent('r', kKEY_DOWN, "toggle kinect register viewport", "KinectController::toggleRegisterKinectViewport");
+	_keyModel->registerEvent('p', kKEY_DOWN, "show all properties in debug view", "AppModel::toggleBooleanProperty", (string)"showProps");
+	_keyModel->registerEvent('d', kKEY_DOWN, "show/hide debug view", "AppModel::toggleBooleanProperty", (string)"showDebug");
+	_keyModel->registerEvent('s', kKEY_DOWN, "toggle dual screen draw", "AppModel::toggleBooleanProperty", (string)"showDualScreen");
+	_keyModel->registerEvent('y', kKEY_DOWN, "increment blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", 1);
+	_keyModel->registerEvent('h', kKEY_DOWN, "decrement blurIterations", "AppModel::adjustIntProperty", (string)"blurIterations", -1);
+	_keyModel->registerEvent('i', kKEY_DOWN, "increment current kinectLayer nearThreshold", "KinectController::setNearThreshold", 10, true);
+	_keyModel->registerEvent('k', kKEY_DOWN, "decrement current kinectLayer nearThreshold", "KinectController::setNearThreshold", -10, true);
+	_keyModel->registerEvent('o', kKEY_DOWN, "increment current kinectLayer farThreshold", "KinectController::setFarThreshold", 10, true);
+	_keyModel->registerEvent('l', kKEY_DOWN, "decrement current kinectLayer farThreshold", "KinectController::setFarThreshold", -10, true);
 	
+	_appModel->registerFunction("AppController::test1", 
+								MakeDelegate(this, &AppController::test1));
+	
+	_appModel->registerFunction("AppController::test2", 
+								MakeDelegate(this, &AppController::test2));
+	
+	_appModel->registerFunction("AppController::test3", 
+								MakeDelegate(this, &AppController::test3));
+	
+	_midiModel->registerEvent(1, 144, 36, 0, kMIDI_ANY, "toggle fullscreen/window", "AppController::toggleFullscreen");
+	_midiModel->registerEvent(1, 144, 37, 0, kMIDI_PASS_BYTE_ONE, "test1", "AppController::test1");
+	_midiModel->registerEvent(1, 144, 38, 0, kMIDI_PASS_BYTE_TWO, "test2", "AppController::test2", (string)"byteTwo");
+	_midiModel->registerEvent(1, 208, 0, 0, kMIDI_PASS_BYTE_BOTH, "test3", "AppController::test3");
+
 	_appModel->setCurrentScene("test_scene");
 	_kinectController->setupKinectLayers();
 	_videoController->setupVideoLayers();

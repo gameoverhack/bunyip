@@ -14,15 +14,8 @@ MidiController::MidiController() {
 	
 	LOG_NOTICE("Constructing MidiController");
 	
-	/*InputParams1<string> ki;
-	
-	ki.setKey('a');
-	ki.setParam1("moviename.mov");
-	
-	_appModel->registerInputToFunction("AppController::test", ki);
-	*/
 	_midiIn.openPort();
-    _midiIn.setVerbose(true);
+    //_midiIn.setVerbose(true);
 	
     ofAddListener(_midiIn.newMessageEvent, this, &MidiController::midiMessage);
 	
@@ -36,12 +29,7 @@ MidiController::~MidiController() {
 //--------------------------------------------------------------
 void MidiController::midiMessage(ofxMidiEventArgs &args) {
 	
-	MidiMessage mm(args.port, args.channel, args.status, args.byteOne, args.byteTwo, args.timestamp);
-	mm.print(true);
+	MidiMessage midiMessage(args.port, args.channel, args.status, args.byteOne, args.byteTwo, args.timestamp);
+	_midiModel->executeFunction(midiMessage);
 	
-}
-
-//--------------------------------------------------------------
-void MidiController::executeFunction(int key) {
-
 }
