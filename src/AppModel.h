@@ -13,6 +13,7 @@
 #include "Singleton.h"
 #include "AppDataTypes.h"
 #include "SceneDataType.h"
+#include "ofxSimpleGuiToo.h"
 
 #include <boost/any.hpp>
 
@@ -52,10 +53,14 @@ public:
 	Scene*					getCurrentScene();
 	
 	Scene*					getScene(string sceneName);
+	Scene*					getScene(int sceneIndex);
+	
 	map<string, Scene*>		getScenes();
 	
     bool					nextScene();
 	bool					previousScene();
+	
+	int						getNumberOfScenes() {return _scenes.size();};
 	
     // generic property getter/setters
 	bool					hasProperty(string propName);
@@ -89,6 +94,27 @@ public:
 	};
 
 	map<string, DelegateMemento>	_registeredFunctions; // dangerous but copies and pointers don't seem to work
+	
+	// lazy gui vars
+	
+	ofxSimpleGuiToo	gui;
+	
+	bool	guiProp_Calibrate;
+	bool	guiProp_ReloadScenes;
+	bool	guiProp_ResetViewport;
+	bool	guiProp_ResetDepth;
+	bool	guiProp_UseApproximation;
+	
+	bool	guiProp_FirstScene;
+	bool	guiProp_PrevScene;
+	bool	guiProp_NextScene;
+	bool	guiProp_LastScene;
+	
+	bool	guiProp_AddScene;
+	bool	guiProp_DelScene;
+	
+	bool	guiProp_AddKinect;
+	bool	guiProp_AddVideo;
 	
 private:
 	

@@ -21,7 +21,7 @@ class KinectView : public BaseView {
 
 public:
 
-	KinectView(float width, float height, int layerIndex, ViewPort * viewPort = NULL, int nearThreshold = 0, int farThreshold = 10000);
+	KinectView(float width, float height, int layerIndex, float smoothContourThreshold = 0.2, int minSizeBlobs = 1000, int maxSizeBlobs = 200000, ViewPort * viewPort = NULL, int nearThreshold = 0, int farThreshold = 10000);
 	~KinectView();
 	
 	void update();
@@ -30,11 +30,18 @@ public:
 	ofxCvContourFinder*		getDepthContour() {return _depthContour;};
 	unsigned char*			getDepthPixels() {return _depthPixels;};
 	
-	int						getNearThreshold() {return _nearThreshold;};
-	int						getFarThreshold() {return _farThreshold;};
+	int*					getNearThreshold() {return &_nearThreshold;};
+	int*					getFarThreshold() {return &_farThreshold;};
+	int*					getMinSizeContourBlobs() {return &_minSizeBlobs;};
+	int*					getMaxSizeContourBlobs() {return &_maxSizeBlobs;};
+	float*					getSmoothContourThreshold() {return &_smoothContourThreshold;};
+	int*					getLayerIndex() {return &_layerIndex;};
 	
 	void					setNearThreshold(int amount, bool relative = false);
 	void					setFarThreshold(int amount, bool relative = false);
+	void					setMinSizeContourBlobs(int amount, bool relative = false);
+	void					setMaxSizeContourBlobs(int amount, bool relative = false);
+	void					setSmoothContourThreshold(float amount, bool relative = false);
 	
 private:
 	
@@ -44,6 +51,10 @@ private:
 	
 	int						_nearThreshold;
 	int						_farThreshold;
+	int						_minSizeBlobs;
+	int						_maxSizeBlobs;
+	
+	float					_smoothContourThreshold;
 	
 	int						_layerIndex;
 	

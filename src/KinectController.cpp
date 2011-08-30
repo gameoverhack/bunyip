@@ -16,6 +16,8 @@ KinectController::KinectController() {
 	
     registerStates();
 
+	_useApproximation = true;
+	
 	if (_kinectModel->setup()) {
 		setState(kKINECTCONTROLLER_READY);
 	} else setState(kKINECTCONTROLLER_ERROR);
@@ -76,7 +78,7 @@ void KinectController::setNearThreshold(int amount, bool relative) {
 			kinectLayer->setNearThreshold(amount, relative);
 		}
 		
-		oniDepthGen->setDepthThreshold(kinectLayerIndex, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());
+		oniDepthGen->setDepthThreshold(kinectLayerIndex, *kinectLayer->getNearThreshold(), *kinectLayer->getFarThreshold());
 	}
 	
 }
@@ -95,7 +97,7 @@ void KinectController::setFarThreshold(int amount, bool relative) {
 			kinectLayer->setFarThreshold(amount, relative);
 		}
 		
-		oniDepthGen->setDepthThreshold(kinectLayerIndex, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());		
+		oniDepthGen->setDepthThreshold(kinectLayerIndex, *kinectLayer->getNearThreshold(), *kinectLayer->getFarThreshold());		
 	}
 	
 }
@@ -114,7 +116,7 @@ void KinectController::setupKinectLayers() {
 		for (int layer = 0; layer < numberOfKinectLayers; layer++) {
 			
 			KinectView * kinectLayer	= currentScene->getKinectLayer(layer);
-			oniDepthGen->setDepthThreshold(layer, kinectLayer->getNearThreshold(), kinectLayer->getFarThreshold());
+			oniDepthGen->setDepthThreshold(layer, *kinectLayer->getNearThreshold(), *kinectLayer->getFarThreshold());
 		}
 	
 	}
@@ -150,10 +152,15 @@ void KinectController::update() {
 			unsigned char* depthPixels			= kinectLayer->getDepthPixels();
 			ofxCvGrayscaleImage* depthImage		= kinectLayer->getDepthImage();
 			ofxCvContourFinder* depthContour	= kinectLayer->getDepthContour();
+			float smoothContourThreshold		= *kinectLayer->getSmoothContourThreshold();
+			int minSizeBlobs					= *kinectLayer->getMinSizeContourBlobs();
+			int maxSizeBlobs					= *kinectLayer->getMaxSizeContourBlobs();
+			
+			oniDepthGen->setDepthThreshold(layer, *kinectLayer->getNearThreshold(), *kinectLayer->getFarThreshold());
 			
 			depthPixels	= oniDepthGen->getDepthPixels(layer);	
 			depthImage->setFromPixels(depthPixels, (int)oniDepthGen->getWidth(), (int)oniDepthGen->getHeight());
-			int nBlobs = depthContour->findContours(*depthImage, 1000, 200000, 20, true, false, 0.2);
+			int nBlobs = depthContour->findContours(*depthImage, minSizeBlobs, maxSizeBlobs, 4, true, _useApproximation, smoothContourThreshold);
 			kinectLayer->update();
 			
 		}

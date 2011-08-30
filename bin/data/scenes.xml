@@ -1,15 +1,15 @@
 <scenes>
     <scene name="scene0" numKinectLayers="2" numVideoLayers="0" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
-            <viewPort x="24.000000" y="156.000000" width="1024.000000" height="768.000000">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="1900" farThreshold="5299" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
+            <viewPort x="-12.000000" y="228.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
                 <corner x="1.000000" y="1.000000"></corner>
-                <corner x="0.000000" y="1.000000"></corner>
+                <corner x="0.136719" y="0.906250"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
-            <viewPort x="44.000000" y="136.000000" width="1024.000000" height="768.000000">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="1250" farThreshold="4600" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
+            <viewPort x="260.000000" y="140.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
                 <corner x="0.914062" y="1.005208"></corner>
@@ -18,26 +18,26 @@
         </kinectLayer>
     </scene>
     <scene name="scene1" numKinectLayers="2" numVideoLayers="1" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
-            <viewPort x="24.000000" y="156.000000" width="1024.000000" height="768.000000">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="1030" farThreshold="7970" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
+            <viewPort x="104.000000" y="76.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
                 <corner x="1.000000" y="1.000000"></corner>
-                <corner x="0.000000" y="1.000000"></corner>
+                <corner x="0.011719" y="1.093750"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
-            <viewPort x="44.000000" y="136.000000" width="1024.000000" height="768.000000">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="800" farThreshold="1500" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
+            <viewPort x="24.000000" y="136.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
                 <corner x="0.914062" y="1.005208"></corner>
                 <corner x="0.046875" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/waterholesgroup1.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/waterholesgroup1.mov" width="1024.000000" height="768.000000"></videoLayer>
     </scene>
     <scene name="scene2" numKinectLayers="2" numVideoLayers="1" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="24.000000" y="156.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
@@ -45,7 +45,7 @@
                 <corner x="0.000000" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="44.000000" y="136.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
@@ -53,10 +53,10 @@
                 <corner x="0.046875" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/waterholes2.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/waterholes2.mov" width="1024.000000" height="768.000000"></videoLayer>
     </scene>
     <scene name="scene3" numKinectLayers="2" numVideoLayers="2" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="28.000000" y="196.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
@@ -64,7 +64,7 @@
                 <corner x="0.000000" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="56.000000" y="136.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
@@ -72,11 +72,11 @@
                 <corner x="0.046875" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/nyolseyesangry.mov" width="1024.000000" height="768.000000"></videoLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/campfirewall.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/nyolseyesangry.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/campfirewall.mov" width="1024.000000" height="768.000000"></videoLayer>
     </scene>
     <scene name="scene4" numKinectLayers="2" numVideoLayers="1" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="24.000000" y="156.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
@@ -84,7 +84,7 @@
                 <corner x="0.000000" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="44.000000" y="136.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
@@ -92,10 +92,10 @@
                 <corner x="0.046875" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/nyolseyeshappy.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/nyolseyeshappy.mov" width="1024.000000" height="768.000000"></videoLayer>
     </scene>
     <scene name="scene5" numKinectLayers="2" numVideoLayers="2" width="1024.000000" height="768.000000">
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="5520" farThreshold="6710" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="24.000000" y="156.000000" width="1024.000000" height="768.000000">
                 <corner x="0.007812" y="0.098958"></corner>
                 <corner x="0.992188" y="0.098958"></corner>
@@ -103,7 +103,7 @@
                 <corner x="0.000000" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450">
+        <kinectLayer width="1024.000000" height="768.000000" nearThreshold="2800" farThreshold="3450" minBlobs="1000" maxBlobs="200000" smoothThresh="0.200000">
             <viewPort x="44.000000" y="136.000000" width="1024.000000" height="768.000000">
                 <corner x="0.054688" y="0.145833"></corner>
                 <corner x="0.917969" y="0.151042"></corner>
@@ -111,7 +111,7 @@
                 <corner x="0.046875" y="1.000000"></corner>
             </viewPort>
         </kinectLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/campfire centre.mov" width="1024.000000" height="768.000000"></videoLayer>
-        <videoLayer videoPath="/Users/erth/Documents/I Bunyip/Movies/campfirewall.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/campfire centre.mov" width="1024.000000" height="768.000000"></videoLayer>
+        <videoLayer videoPath="/Users/gameover/Documents/I Bunyip/Movies/campfirewall.mov" width="1024.000000" height="768.000000"></videoLayer>
     </scene>
 </scenes>

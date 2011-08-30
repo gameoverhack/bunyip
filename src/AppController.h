@@ -21,6 +21,7 @@
 #include "MidiController.h"
 #include "VideoController.h"
 #include "KinectController.h"
+#include "GuiController.h"
 
 #include "AppView.h"
 
@@ -44,7 +45,7 @@ public:
 	void draw();
 	
 private:
-	
+
 	void nextScene();
 	void previousScene();
 	void gotoScene(int sceneIndex);
@@ -60,6 +61,7 @@ private:
 	MidiController*			_midiController;
 	VideoController*		_videoController;
 	KinectController*		_kinectController;
+	GuiController*			_guiController;
 	
 	AppView*				_appView;
 

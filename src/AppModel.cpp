@@ -46,6 +46,23 @@ void AppModel::setScene(Scene * scene) {
 	_scenes.insert(pair<string, Scene *>(scene->getName(), scene));
 }
 
+Scene *AppModel::getScene(int sceneIndex) {
+	
+	assert(sceneIndex < _scenes.size());
+	int index = 0;
+	
+	map<string, Scene *>::iterator iter;
+	for (iter = _scenes.begin(); iter != _scenes.end(); iter++) {
+		if (index == sceneIndex) {
+			break;
+		}
+		index++;
+	}
+	
+	return iter->second;
+	
+}
+
 Scene *AppModel::getScene(string sceneName) {
 	
 	map<string, Scene *>::iterator iter;

@@ -49,7 +49,9 @@ void SceneXMLParser::parseXML(){
 			float layerHeight		= _xml.getAttribute("kinectLayer", "height", -1.0f, layer);
 			int layerNearThresh		= _xml.getAttribute("kinectLayer", "nearThreshold", 0, layer);
 			int layerFarThresh		= _xml.getAttribute("kinectLayer", "farThreshold", 10000, layer);
-			
+			int layerMinBlobs		= _xml.getAttribute("kinectLayer", "minBlobs", 1000, layer);
+			int layerMaxBlobs		= _xml.getAttribute("kinectLayer", "maxBlobs", 200000, layer);
+			float layerSmooth		= _xml.getAttribute("kinectLayer", "smoothThresh", 0.2, layer);
 			
 			if (layerWidth == -1.0f || layerHeight == -1.0f) {
 				LOG_ERROR("KinectLayer attributes are missing or broken!");
@@ -78,7 +80,7 @@ void SceneXMLParser::parseXML(){
 			}
 
 			ViewPort * viewPort = new ViewPort(viewportX, viewportY, viewportWidth, viewportHeight, viewportCorners);
-			kinectLayers[layer] = new KinectView(layerWidth, layerHeight, layer, viewPort, layerNearThresh, layerFarThresh);
+			kinectLayers[layer] = new KinectView(layerWidth, layerHeight, layer, layerSmooth, layerMinBlobs, layerMaxBlobs, viewPort, layerNearThresh, layerFarThresh);
 			
 			_xml.popTag();
 			_xml.popTag();
@@ -119,8 +121,10 @@ void SceneXMLParser::parseXML(){
 								 (hasKinectLayers ? kinectLayers : NULL), 
 								 (hasVideoLayers ? videoLayers : NULL));
 		
-		_appModel->setScene(scene);
+		_appModel->registerFunction(sceneName+"::Scene::deleteKinectLayer", MakeDelegate(scene, &Scene::deleteKinectLayer));
 		
+		_appModel->setScene(scene);
+	
 		_xml.popTag();
 		
 	}

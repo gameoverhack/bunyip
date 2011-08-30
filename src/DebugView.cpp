@@ -48,7 +48,7 @@ void DebugView::update() {
 		float y			= 10;
 		float width		= kinectLayer->getWidth()/4.0f;
 		float height	= kinectLayer->getHeight()/4.0f;
-		string info		= "kLayer " + ofToString(layer) + " near: " + ofToString(kinectLayer->getNearThreshold()) + " far: " + ofToString(kinectLayer->getFarThreshold());
+		string info		= "kLayer " + ofToString(layer) + " near: " + ofToString(*kinectLayer->getNearThreshold()) + " far: " + ofToString(*kinectLayer->getFarThreshold());
 
 		glTranslatef(0.0f, _viewHeight, 0.0f);
 		glScaled(1.0f, -1.0f, 0.0f);
@@ -58,6 +58,7 @@ void DebugView::update() {
 		ofDrawBitmapString(info, x+4, y+12);
 		ofSetColor(255, 255, 255);
 		viewPort->drawViewport(x, y, width, height); // upside down mr squiggle
+		kinectLayer->getDepthImage()->draw(x, y+height, width, height);
 		glPopMatrix();
 		
 	}

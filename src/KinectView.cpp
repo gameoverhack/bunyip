@@ -10,8 +10,8 @@
 #include "KinectView.h"
 
 //--------------------------------------------------------------
-KinectView::KinectView(float width, float height, int layerIndex, ViewPort * viewPort, int nearThreshold, int farThreshold) 
-						: BaseView(width, height), _layerIndex(layerIndex), _nearThreshold(nearThreshold), _farThreshold(farThreshold) {
+KinectView::KinectView(float width, float height, int layerIndex, float smoothContourThreshold, int minSizeBlobs, int maxSizeBlobs, ViewPort * viewPort, int nearThreshold, int farThreshold) 
+						: BaseView(width, height), _layerIndex(layerIndex), _smoothContourThreshold(smoothContourThreshold), _minSizeBlobs(minSizeBlobs), _maxSizeBlobs(maxSizeBlobs), _nearThreshold(nearThreshold), _farThreshold(farThreshold) {
 	
 	LOG_NOTICE("Constructing KinectView: " + ofToString(_nearThreshold) + " : " + ofToString(_farThreshold));
 	
@@ -52,7 +52,7 @@ KinectView::~KinectView() {
 
 //--------------------------------------------------------------
 void KinectView::update() {
-	
+
 	_viewFBO.begin();
 	
 	glPushMatrix();
@@ -79,6 +79,26 @@ void KinectView::update() {
 	glPopMatrix();
 	_viewFBO.end();
 	
+}
+//--------------------------------------------------------------
+void KinectView::setMinSizeContourBlobs(int amount, bool relative) {
+	if (relative) {
+		_minSizeBlobs += amount;
+	} else _minSizeBlobs = amount;
+}
+
+//--------------------------------------------------------------
+void KinectView::setMaxSizeContourBlobs(int amount, bool relative) {
+	if (relative) {
+		_maxSizeBlobs += amount;
+	} else _maxSizeBlobs = amount;
+}
+
+//--------------------------------------------------------------
+void KinectView::setSmoothContourThreshold(float amount, bool relative) {
+	if (relative) {
+		_smoothContourThreshold += amount;
+	} else _smoothContourThreshold = amount;
 }
 
 //--------------------------------------------------------------

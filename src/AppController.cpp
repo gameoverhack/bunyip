@@ -35,6 +35,13 @@ AppController::AppController() {
 	_midiController = new MidiController();
 	_videoController = new VideoController();
 	_kinectController = new KinectController();
+	_guiController = new GuiController();
+	_guiController->setup();
+	
+	for (int sceneIndex = 0; sceneIndex < _appModel->getNumberOfScenes(); sceneIndex++) {
+		_guiController->addSceneGui(_appModel->getScene(sceneIndex));
+	}
+	
 	
 	_appView = new AppView(1024.0f, 768.0f);
 	
@@ -65,6 +72,9 @@ AppController::AppController() {
 	_appModel->registerFunction("AppController::previousScene", 
 								MakeDelegate(this, &AppController::previousScene));
 	
+	_appModel->registerFunction("KinectController::toggleUseApproximation", 
+								MakeDelegate(_kinectController, &KinectController::toggleUseApproximation));
+	
 	ofSetFullscreen(boost::any_cast<bool>(_appModel->getProperty("showFullscreen")));
 	
 	_keyModel->registerEvent('f', kKEY_DOWN, "toggle fullscreen/window", "AppController::toggleFullscreen");
@@ -78,6 +88,7 @@ AppController::AppController() {
 	_keyModel->registerEvent('k', kKEY_DOWN, "decrement current kinectLayer nearThreshold", "KinectController::setNearThreshold", -10, true);
 	_keyModel->registerEvent('o', kKEY_DOWN, "increment current kinectLayer farThreshold", "KinectController::setFarThreshold", 10, true);
 	_keyModel->registerEvent('l', kKEY_DOWN, "decrement current kinectLayer farThreshold", "KinectController::setFarThreshold", -10, true);
+	_keyModel->registerEvent('t', kKEY_DOWN, "toggle use approximation for contours", "KinectController::toggleUseApproximation");
 	
 	_keyModel->registerEvent('.', kKEY_DOWN, "next scene", "AppController::nextScene");
 	_keyModel->registerEvent(',', kKEY_DOWN, "previous scene", "AppController::nextScene");
@@ -86,7 +97,6 @@ AppController::AppController() {
 //	_midiModel->registerEvent(1, 144, 37, 0, kMIDI_PASS_BYTE_ONE, "test1", "AppController::test1");
 //	_midiModel->registerEvent(1, 144, 38, 0, kMIDI_PASS_BYTE_TWO, "test2", "AppController::test2", (string)"byteTwo");
 //	_midiModel->registerEvent(1, 208, 0, 0, kMIDI_PASS_BYTE_BOTH, "test3", "AppController::test3");
-
 
 	
 	//_appModel->getCurrentScene()->addVideoLayer();
@@ -158,6 +168,7 @@ void AppController::gotoScene(string sceneName) {
 
 //--------------------------------------------------------------
 void AppController::update() {
+	
 	_videoController->update();
 	_kinectController->update();
 	_appView->update();

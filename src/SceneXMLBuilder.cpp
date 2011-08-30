@@ -47,8 +47,11 @@ void SceneXMLBuilder::buildXML(){
 			
 			_xml.addAttribute("kinectLayer", "width", kinectLayer->getWidth(), layer);
 			_xml.addAttribute("kinectLayer", "height", kinectLayer->getHeight(), layer);
-			_xml.addAttribute("kinectLayer", "nearThreshold", kinectLayer->getNearThreshold(), layer);
-			_xml.addAttribute("kinectLayer", "farThreshold", kinectLayer->getFarThreshold(), layer);
+			_xml.addAttribute("kinectLayer", "nearThreshold", *kinectLayer->getNearThreshold(), layer);
+			_xml.addAttribute("kinectLayer", "farThreshold", *kinectLayer->getFarThreshold(), layer);
+			_xml.addAttribute("kinectLayer", "minBlobs", *kinectLayer->getMinSizeContourBlobs(), layer);
+			_xml.addAttribute("kinectLayer", "maxBlobs", *kinectLayer->getMaxSizeContourBlobs(), layer);
+			_xml.addAttribute("kinectLayer", "smoothThresh", *kinectLayer->getSmoothContourThreshold(), layer);
 			
 			_xml.pushTag("kinectLayer", layer);
 			
@@ -82,7 +85,7 @@ void SceneXMLBuilder::buildXML(){
 			
 			_xml.addTag("videoLayer");
 			
-			_xml.addAttribute("videoLayer", "videoPath", videoLayer->getVideoPath(), layer);
+			_xml.addAttribute("videoLayer", "videoPath", *videoLayer->getVideoPath(), layer);
 			_xml.addAttribute("videoLayer", "width", videoLayer->getWidth(), layer);
 			_xml.addAttribute("videoLayer", "height", videoLayer->getHeight(), layer);
 			

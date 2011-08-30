@@ -42,9 +42,11 @@ public:
 	
 	void	update();
 	
+	void	toggleUseApproximation() {_useApproximation ^= true;};
+	
 private:
 	
-	
+	bool	_useApproximation;
 	
 };
 

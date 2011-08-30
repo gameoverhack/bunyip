@@ -1,0 +1,48 @@
+<controls>
+    <SliderInt_nearThreshold>
+        <name>nearThreshold</name>
+        <value>1030</value>
+        <name>nearThreshold</name>
+        <value>800</value>
+    </SliderInt_nearThreshold>
+    <SliderInt_farThreshold>
+        <name>farThreshold</name>
+        <value>7970</value>
+        <name>farThreshold</name>
+        <value>1500</value>
+    </SliderInt_farThreshold>
+    <SliderInt_minBlobSize>
+        <name>minBlobSize</name>
+        <value>1000</value>
+        <name>minBlobSize</name>
+        <value>1000</value>
+    </SliderInt_minBlobSize>
+    <SliderInt_maxBlobSize>
+        <name>maxBlobSize</name>
+        <value>200000</value>
+        <name>maxBlobSize</name>
+        <value>200000</value>
+    </SliderInt_maxBlobSize>
+    <SliderFloat_smoothThreshold>
+        <name>smoothThreshold</name>
+        <value>0.200000</value>
+        <name>smoothThreshold</name>
+        <value>0.200000</value>
+    </SliderFloat_smoothThreshold>
+    <Button_delete_layer>
+        <name>delete layer</name>
+        <value>66</value>
+        <name>delete layer</name>
+        <value>66</value>
+    </Button_delete_layer>
+    <SliderInt_nearThreshold></SliderInt_nearThreshold>
+    <SliderInt_farThreshold></SliderInt_farThreshold>
+    <SliderInt_minBlobSize></SliderInt_minBlobSize>
+    <SliderInt_maxBlobSize></SliderInt_maxBlobSize>
+    <SliderFloat_smoothThreshold></SliderFloat_smoothThreshold>
+    <Button_delete_layer></Button_delete_layer>
+    <Button_Add_Video_Layer>
+        <name>Add Video Layer</name>
+        <value>0</value>
+    </Button_Add_Video_Layer>
+</controls>

@@ -1,0 +1,50 @@
+<controls>
+    <Toggle_Calibrate>
+        <name>Calibrate</name>
+        <value>0</value>
+    </Toggle_Calibrate>
+    <Button_(Re)load_Scenes>
+        <name>(Re)load Scenes</name>
+        <value>0</value>
+    </Button_(Re)load_Scenes>
+    <Button_Reset_Current_Viewport>
+        <name>Reset Current Viewport</name>
+        <value>0</value>
+    </Button_Reset_Current_Viewport>
+    <Button_Reset_Current_Depth>
+        <name>Reset Current Depth</name>
+        <value>0</value>
+    </Button_Reset_Current_Depth>
+    <Button_Fullscreen>
+        <name>Fullscreen</name>
+        <value>66</value>
+    </Button_Fullscreen>
+    <Toggle_Use_Contour_Approximation>
+        <name>Use Contour Approximation</name>
+        <value>0</value>
+    </Toggle_Use_Contour_Approximation>
+    <Button_First_Scene>
+        <name>First Scene</name>
+        <value>0</value>
+    </Button_First_Scene>
+    <Button_Prev_Scene>
+        <name>Prev Scene</name>
+        <value>0</value>
+    </Button_Prev_Scene>
+    <Button_Next_Scene>
+        <name>Next Scene</name>
+        <value>0</value>
+    </Button_Next_Scene>
+    <Button_Last_Scene>
+        <name>Last Scene</name>
+        <value>0</value>
+    </Button_Last_Scene>
+    <Button_Add_Scene>
+        <name>Add Scene</name>
+        <value>0</value>
+    </Button_Add_Scene>
+    <Button_Del_Scene>
+        <name>Del Scene</name>
+        <value>0</value>
+    </Button_Del_Scene>
+</controls>

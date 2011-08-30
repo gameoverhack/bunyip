@@ -22,7 +22,7 @@ public:
 	
 	void update();
 	
-	string					getVideoPath() {return _videoPath;};
+	string*					getVideoPath() {return &_videoPath;};
 	goThreadedVideo*		getVideo() {return _video;};
 	
 	void loadMovie(string videoPath = "");

@@ -79,4 +79,6 @@ void AppView::draw() {
 		}
 	}
 	
+	_appModel->gui.draw();
+	
 }
